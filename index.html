@@ -566,30 +566,38 @@ function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.flo
 
 /* ---- 斷句引擎:把題幹切成「詞塊」,詞塊之間放一個可點的逗號位置 ---- */
 // 提問/轉折詞:在這些詞「前面」也是好的斷句點
-const CUE_WORDS = ['根據','這位','這個','這項','這種','這座','這些','這最','這說明','文中','請問','他們','其中','因此','所以','然而','但','由此','上述','造成','為了','若','當','依據','閱讀','下列','這反映','這類','這是','近年','近來','世界上'];
+// 「提問句」的開頭詞:整句的最後一個大停頓,通常在這些詞前面
+const Q_CUES = ['根據上','根據這','根據','請問','這位','這個','這項','這種','這座','這些','這說明','這反映','這類','文中','由此','上述','這是說','造成這','造成該'];
 
+// 只在「最關鍵的 1~2 個大停頓」放斷句點:
+//   ① 情境結束點:第一個「。」或「」」之後(把背景敘述和提問分開)
+//   ② 提問開始點:題目最後的「請問/這位/下列…」之前
+// 其餘逗號都「留在文字裡」,不變成圈圈,才不會滿滿都是逗號。
 function buildChunks(stem){
-  // 先在「提問/轉折詞」前面插入一個切點標記,即使原本沒有逗號
-  // 切點字元:全形逗號、以及我們插入的特殊記號 \u0001
-  let raw = stem;
-  // 在句號、引號結尾之後若接著提問詞,插入切點
-  CUE_WORDS.forEach(w=>{
-    // 「。詞」「」詞」「)詞」→ 在詞前切
-    raw = raw.replace(new RegExp('([。」)])'+w,'g'), '$1\u0001'+w);
+  const cut = new Set();   // 要切開的字元索引(在該索引「之前」斷開)
+
+  // ② 提問開始點:從後半段找提問詞
+  let qPos = -1;
+  Q_CUES.forEach(w=>{
+    const idx = stem.lastIndexOf(w);
+    if(idx > stem.length*0.35 && (qPos===-1 || idx<qPos)) qPos = idx;
   });
-  const segs=[]; const bestGap=[]; let buf='';
-  for(let i=0;i<raw.length;i++){
-    const ch=raw[i];
-    if(ch==='，'||ch===','||ch==='\u0001'){
-      if(buf){ segs.push(buf); buf=''; bestGap.push(true); }
-    } else { buf+=ch; }
+  if(qPos > 0) cut.add(qPos);
+
+  // ① 情境結束點:第一個 」或。 的後面(且要在提問點之前、不要太靠近開頭或結尾)
+  const m = stem.match(/[」。]/);
+  if(m){
+    const p = m.index + 1;
+    if(p > 6 && p < stem.length-4 && (qPos===-1 || p < qPos-2)) cut.add(p);
   }
-  if(buf) segs.push(buf);
-  const gaps=new Array(Math.max(segs.length-1,0)).fill(false);
-  for(let i=0;i<bestGap.length && i<gaps.length;i++){ gaps[i]=true; }
-  for(let i=1;i<segs.length;i++){
-    if(CUE_WORDS.some(w=>segs[i].startsWith(w))){ gaps[i-1]=true; }
-  }
+
+  // 依 cut 位置切段(最多就 2 個點 → 3 段)
+  const points = [...cut].sort((a,b)=>a-b);
+  const segs=[]; let prev=0;
+  points.forEach(p=>{ segs.push(stem.slice(prev,p)); prev=p; });
+  segs.push(stem.slice(prev));
+  // gaps 全部都是「最佳」(因為我們只放了關鍵點)
+  const gaps = new Array(Math.max(segs.length-1,0)).fill(true);
   return {segs, gaps};
 }
 
@@ -615,15 +623,18 @@ function renderBank(){
     const card = document.createElement('div');
     card.className = 'qcard';
     card.dataset.subj = q.subj;
+    const built = buildChunks(q.stem);
+    const hasChunk = built.gaps.length > 0;
+    const stemHtml = hasChunk ? renderStem(q.stem) : ('<div class="chunk-stem" data-best="">'+q.stem+'</div>');
     card.innerHTML = `
       <span class="qtag ${q.subj}">${q.tag}</span>
-      <div class="chunk-hint">✏️ 第一步:先幫題目<b>點上逗號</b>,把長句切成小塊,再回答!</div>
-      <div class="qstem">${renderStem(q.stem)}</div>
-      <div class="chunk-actions">
+      ${hasChunk ? '<div class="chunk-hint">✏️ 第一步:找出<b>1~2 個最該停頓</b>的地方點上逗號(通常在<b>敘述講完</b>、<b>問題開始</b>之處),再作答!</div>' : ''}
+      <div class="qstem">${stemHtml}</div>
+      ${hasChunk ? `<div class="chunk-actions">
         <button class="mini-btn checkChunkBtn">看看我斷得好不好 ✨</button>
         <span class="chunk-fb"></span>
-      </div>
-      <div class="qopts locked">
+      </div>` : ''}
+      <div class="qopts${hasChunk ? ' locked' : ''}">
         ${order.map((oi,i)=>`<button class="qopt" data-i="${i}"><b>${letters[i]}</b> ${q.opts[oi]}</button>`).join('')}
       </div>
       <div class="qwhy"><b>💡 解題:</b>${q.why}</div>
@@ -640,26 +651,26 @@ function renderBank(){
     const bestStr = stemEl.dataset.best;
     const fb = card.querySelector('.chunk-fb');
     const optsWrap = card.querySelector('.qopts');
-    card.querySelector('.checkChunkBtn').addEventListener('click',()=>{
-      const picked=[...card.querySelectorAll('.cgap')].filter(g=>g.classList.contains('on')).map(g=>+g.dataset.i);
-      let bestIdx=[]; for(let i=0;i<bestStr.length;i++){ if(bestStr[i]==='1') bestIdx.push(i); }
-      const hit = bestIdx.filter(b=>picked.includes(b)).length;
-      // 顯示正解斷點(綠色)
-      card.querySelectorAll('.cgap').forEach(g=>{
-        if(bestStr[+g.dataset.i]==='1'){ g.classList.add('good'); g.classList.remove('on'); }
+    const checkBtn = card.querySelector('.checkChunkBtn');
+    if(checkBtn){
+      checkBtn.addEventListener('click',()=>{
+        const picked=[...card.querySelectorAll('.cgap')].filter(g=>g.classList.contains('on')).map(g=>+g.dataset.i);
+        let bestIdx=[]; for(let i=0;i<bestStr.length;i++){ if(bestStr[i]==='1') bestIdx.push(i); }
+        const hit = bestIdx.filter(b=>picked.includes(b)).length;
+        card.querySelectorAll('.cgap').forEach(g=>{
+          if(bestStr[+g.dataset.i]==='1'){ g.classList.add('good'); g.classList.remove('on'); }
+        });
+        if(hit===bestIdx.length && picked.length<=bestIdx.length+1){
+          fb.textContent='🎉 斷得剛剛好!綠色就是最佳位置'; fb.style.color='#3fb8a8';
+        } else if(hit>=1){
+          fb.textContent='👍 不錯!綠色勾勾才是最佳停頓點,對照看看'; fb.style.color='#e8843e';
+        } else {
+          fb.textContent='💡 綠色勾勾的地方最適合停頓喔!'; fb.style.color='#e8547c';
+        }
+        optsWrap.classList.remove('locked');
+        checkBtn.disabled=true;
       });
-      if(bestIdx.length===0){ fb.textContent='這題本來就很短,直接作答吧!'; }
-      else if(hit===bestIdx.length && picked.length<=bestIdx.length+1){
-        fb.textContent='🎉 斷得超好!綠色就是最佳位置'; fb.style.color='#3fb8a8';
-      } else if(hit>=1){
-        fb.textContent='👍 不錯!綠色勾勾是最佳斷句點,對照看看'; fb.style.color='#e8843e';
-      } else {
-        fb.textContent='💡 綠色勾勾的地方最適合停頓喔!'; fb.style.color='#e8547c';
-      }
-      // 解鎖作答
-      optsWrap.classList.remove('locked');
-      card.querySelector('.checkChunkBtn').disabled=true;
-    });
+    }
 
     // 作答
     const opts = card.querySelectorAll('.qopt');
