@@ -113,6 +113,30 @@
   .qtag.geo{background:var(--mint);}
   .qstem{font-size:16px;line-height:2;background:#fbf7f0;border-radius:12px;padding:14px 16px;
     border:2px dashed #e9d9c2;margin-bottom:14px;}
+  /* 題幹斷句 */
+  .chunk-hint{font-size:13.5px;color:#8a7a70;background:#eef7f6;border-radius:10px;padding:8px 12px;margin-bottom:8px;}
+  .chunk-hint b{color:var(--mint);}
+  .chunk-stem{font-size:16px;line-height:2.7;}
+  .seg{white-space:normal;}
+  .cgap{display:inline-block;width:16px;height:16px;border-radius:50%;border:2px dashed #cbb9a6;
+    vertical-align:middle;margin:0 1px;cursor:pointer;transition:.12s;position:relative;top:-1px;}
+  .cgap:hover{border-color:var(--blue);background:#eaf1fb;transform:scale(1.25);}
+  .cgap.on{background:var(--blue);border-color:var(--blue);border-style:solid;}
+  .cgap.on::after{content:'\FF0C';position:absolute;color:#fff;font-size:11px;left:2px;top:-5px;}
+  .cgap.good{background:var(--mint);border-color:var(--mint);border-style:solid;}
+  .cgap.good::after{content:'\2713';position:absolute;color:#fff;font-size:10px;left:2px;top:-1px;}
+  .chunk-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  .mini-btn{background:var(--blue);color:#fff;border:none;border-radius:16px;padding:7px 15px;
+    font-family:'Noto Sans TC';font-weight:700;font-size:13.5px;cursor:pointer;box-shadow:2px 2px 0 var(--shadow);transition:.15s;}
+  .mini-btn:hover{transform:translateY(-2px);}
+  .mini-btn:disabled{background:#c9c0d6;cursor:default;transform:none;box-shadow:none;}
+  .chunk-fb{font-size:13.5px;font-weight:700;}
+  /* 選項鎖定 */
+  .qopts.locked{position:relative;opacity:.45;filter:grayscale(.3);}
+  .qopts.locked::after{content:'🔒 先斷句才能作答';position:absolute;inset:0;display:flex;
+    align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#a08;
+    background:rgba(255,255,255,.55);border-radius:14px;}
+  .qopts.locked .qopt{pointer-events:none;}
   .qopts{display:grid;gap:10px;}
   .qopt{text-align:left;background:#fff;border:2px solid #ecdfe9;border-radius:14px;padding:12px 14px;
     font-family:'Noto Sans TC';font-size:15.5px;cursor:pointer;transition:.15s;color:var(--ink);line-height:1.6;}
@@ -540,11 +564,52 @@ const letters = ['A','B','C','D'];
 
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
+/* ---- 斷句引擎:把題幹切成「詞塊」,詞塊之間放一個可點的逗號位置 ---- */
+// 提問/轉折詞:在這些詞「前面」也是好的斷句點
+const CUE_WORDS = ['根據','這位','這個','這項','這種','這座','這些','這最','這說明','文中','請問','他們','其中','因此','所以','然而','但','由此','上述','造成','為了','若','當','依據','閱讀','下列','這反映','這類','這是','近年','近來','世界上'];
+
+function buildChunks(stem){
+  // 先在「提問/轉折詞」前面插入一個切點標記,即使原本沒有逗號
+  // 切點字元:全形逗號、以及我們插入的特殊記號 \u0001
+  let raw = stem;
+  // 在句號、引號結尾之後若接著提問詞,插入切點
+  CUE_WORDS.forEach(w=>{
+    // 「。詞」「」詞」「)詞」→ 在詞前切
+    raw = raw.replace(new RegExp('([。」)])'+w,'g'), '$1\u0001'+w);
+  });
+  const segs=[]; const bestGap=[]; let buf='';
+  for(let i=0;i<raw.length;i++){
+    const ch=raw[i];
+    if(ch==='，'||ch===','||ch==='\u0001'){
+      if(buf){ segs.push(buf); buf=''; bestGap.push(true); }
+    } else { buf+=ch; }
+  }
+  if(buf) segs.push(buf);
+  const gaps=new Array(Math.max(segs.length-1,0)).fill(false);
+  for(let i=0;i<bestGap.length && i<gaps.length;i++){ gaps[i]=true; }
+  for(let i=1;i<segs.length;i++){
+    if(CUE_WORDS.some(w=>segs[i].startsWith(w))){ gaps[i-1]=true; }
+  }
+  return {segs, gaps};
+}
+
+function renderStem(stem){
+  const {segs, gaps} = buildChunks(stem);
+  let html='<div class="chunk-stem" data-best="'+gaps.map(g=>g?1:0).join('')+'">';
+  segs.forEach((sg,i)=>{
+    html+='<span class="seg">'+sg+'</span>';
+    if(i<segs.length-1){
+      html+='<span class="cgap" data-i="'+i+'" title="覺得該停頓就點一下"></span>';
+    }
+  });
+  html+='</div>';
+  return html;
+}
+
 function renderBank(){
   bank.innerHTML='';
   answered=0; correct=0; updateScore();
   QUESTIONS.forEach((q)=>{
-    // 打散選項順序,同時記住正確答案跑到哪
     const order = shuffle([0,1,2,3]);
     const newAns = order.indexOf(q.ans);
     const card = document.createElement('div');
@@ -552,17 +617,56 @@ function renderBank(){
     card.dataset.subj = q.subj;
     card.innerHTML = `
       <span class="qtag ${q.subj}">${q.tag}</span>
-      <div class="qstem">${q.stem}</div>
-      <div class="qopts">
+      <div class="chunk-hint">✏️ 第一步:先幫題目<b>點上逗號</b>,把長句切成小塊,再回答!</div>
+      <div class="qstem">${renderStem(q.stem)}</div>
+      <div class="chunk-actions">
+        <button class="mini-btn checkChunkBtn">看看我斷得好不好 ✨</button>
+        <span class="chunk-fb"></span>
+      </div>
+      <div class="qopts locked">
         ${order.map((oi,i)=>`<button class="qopt" data-i="${i}"><b>${letters[i]}</b> ${q.opts[oi]}</button>`).join('')}
       </div>
       <div class="qwhy"><b>💡 解題:</b>${q.why}</div>
     `;
     bank.appendChild(card);
+
+    // 斷句:點 gap
+    card.querySelectorAll('.cgap').forEach(g=>{
+      g.addEventListener('click',()=>g.classList.toggle('on'));
+    });
+
+    // 檢查斷句 → 解鎖選項
+    const stemEl = card.querySelector('.chunk-stem');
+    const bestStr = stemEl.dataset.best;
+    const fb = card.querySelector('.chunk-fb');
+    const optsWrap = card.querySelector('.qopts');
+    card.querySelector('.checkChunkBtn').addEventListener('click',()=>{
+      const picked=[...card.querySelectorAll('.cgap')].filter(g=>g.classList.contains('on')).map(g=>+g.dataset.i);
+      let bestIdx=[]; for(let i=0;i<bestStr.length;i++){ if(bestStr[i]==='1') bestIdx.push(i); }
+      const hit = bestIdx.filter(b=>picked.includes(b)).length;
+      // 顯示正解斷點(綠色)
+      card.querySelectorAll('.cgap').forEach(g=>{
+        if(bestStr[+g.dataset.i]==='1'){ g.classList.add('good'); g.classList.remove('on'); }
+      });
+      if(bestIdx.length===0){ fb.textContent='這題本來就很短,直接作答吧!'; }
+      else if(hit===bestIdx.length && picked.length<=bestIdx.length+1){
+        fb.textContent='🎉 斷得超好!綠色就是最佳位置'; fb.style.color='#3fb8a8';
+      } else if(hit>=1){
+        fb.textContent='👍 不錯!綠色勾勾是最佳斷句點,對照看看'; fb.style.color='#e8843e';
+      } else {
+        fb.textContent='💡 綠色勾勾的地方最適合停頓喔!'; fb.style.color='#e8547c';
+      }
+      // 解鎖作答
+      optsWrap.classList.remove('locked');
+      card.querySelector('.checkChunkBtn').disabled=true;
+    });
+
+    // 作答
     const opts = card.querySelectorAll('.qopt');
     const why = card.querySelector('.qwhy');
     opts.forEach(op=>{
       op.addEventListener('click',()=>{
+        if(optsWrap.classList.contains('locked')) return; // 還沒斷句不能答
         if(card.dataset.done) return;
         card.dataset.done = '1';
         const pick = +op.dataset.i;
