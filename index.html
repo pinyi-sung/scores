@@ -111,33 +111,34 @@
     padding:3px 12px;border-radius:20px;margin-bottom:12px;}
   .qtag.his{background:var(--peach);color:#7a4a2a;}
   .qtag.geo{background:var(--mint);}
-  .qstem{font-size:16px;line-height:2;background:#fbf7f0;border-radius:12px;padding:14px 16px;
+  .qstem{font-size:16px;line-height:2.4;background:#fbf7f0;border-radius:12px;padding:14px 16px;
     border:2px dashed #e9d9c2;margin-bottom:14px;}
-  /* 題幹斷句 */
-  .chunk-hint{font-size:13.5px;color:#8a7a70;background:#eef7f6;border-radius:10px;padding:8px 12px;margin-bottom:8px;}
-  .chunk-hint b{color:var(--mint);}
-  .chunk-stem{font-size:16px;line-height:2.7;}
-  .seg{white-space:normal;}
-  .cgap{display:inline-block;width:16px;height:16px;border-radius:50%;border:2px dashed #cbb9a6;
-    vertical-align:middle;margin:0 1px;cursor:pointer;transition:.12s;position:relative;top:-1px;}
-  .cgap:hover{border-color:var(--blue);background:#eaf1fb;transform:scale(1.25);}
-  .cgap.on{background:var(--blue);border-color:var(--blue);border-style:solid;}
-  .cgap.on::after{content:'\FF0C';position:absolute;color:#fff;font-size:11px;left:2px;top:-5px;}
-  .cgap.good{background:var(--mint);border-color:var(--mint);border-style:solid;}
-  .cgap.good::after{content:'\2713';position:absolute;color:#fff;font-size:10px;left:2px;top:-1px;}
-  .chunk-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  /* 步驟標題 */
+  .step-badge{display:inline-block;font-family:'Baloo 2';font-weight:700;font-size:14px;color:#fff;
+    background:var(--blue);padding:4px 14px;border-radius:20px;margin:4px 0 8px;box-shadow:2px 2px 0 var(--shadow);}
+  .step-badge.step2{background:var(--grape);}
+  .step-badge.step3{background:var(--peach);color:#7a4a2a;}
+  .step-badge.hide,.link-map.hide{display:none;}
+  /* 關鍵字 */
+  .ks-hint{font-size:13.5px;color:#8a7a70;background:#eef7f6;border-radius:10px;padding:8px 12px;margin-bottom:8px;}
+  .ks-hint b{color:var(--blue);}
+  .kw{cursor:pointer;border-radius:6px;padding:1px 4px;transition:.15s;border-bottom:2px dotted #c9b8a8;}
+  .kw:hover{background:#fff2c9;}
+  .kw.picked{background:#ffe98a;border-bottom-color:transparent;}
+  .kw.reveal{background:var(--highlight);border-bottom:2px solid #e6b800;font-weight:700;}
+  .ks-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
   .mini-btn{background:var(--blue);color:#fff;border:none;border-radius:16px;padding:7px 15px;
     font-family:'Noto Sans TC';font-weight:700;font-size:13.5px;cursor:pointer;box-shadow:2px 2px 0 var(--shadow);transition:.15s;}
   .mini-btn:hover{transform:translateY(-2px);}
   .mini-btn:disabled{background:#c9c0d6;cursor:default;transform:none;box-shadow:none;}
-  .chunk-fb{font-size:13.5px;font-weight:700;}
+  .ks-fb{font-size:13.5px;font-weight:700;}
   /* 選項鎖定 */
-  .qopts.locked{position:relative;opacity:.45;filter:grayscale(.3);}
-  .qopts.locked::after{content:'🔒 先斷句才能作答';position:absolute;inset:0;display:flex;
+  .qopts.locked{position:relative;opacity:.5;filter:grayscale(.3);}
+  .qopts.locked::after{content:'🔒 先圈關鍵字才能作答';position:absolute;inset:0;display:flex;
     align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#a08;
     background:rgba(255,255,255,.55);border-radius:14px;}
   .qopts.locked .qopt{pointer-events:none;}
-  .qopts{display:grid;gap:10px;}
+  .qopts{display:grid;gap:10px;margin-bottom:6px;}
   .qopt{text-align:left;background:#fff;border:2px solid #ecdfe9;border-radius:14px;padding:12px 14px;
     font-family:'Noto Sans TC';font-size:15.5px;cursor:pointer;transition:.15s;color:var(--ink);line-height:1.6;}
   .qopt b{color:var(--grape);margin-right:6px;}
@@ -145,10 +146,18 @@
   .qopt.qcorrect{background:var(--mint);border-color:var(--mint);color:#fff;}
   .qopt.qcorrect b{color:#fff;}
   .qopt.qwrong{background:#ffd6d6;border-color:#ff9a9a;}
-  .qwhy{background:#f0e9ff;border-radius:12px;padding:0 14px;margin-top:0;font-size:14.5px;line-height:1.9;
-    max-height:0;overflow:hidden;opacity:0;transition:all .4s ease;}
-  .qwhy.show{max-height:400px;padding:14px;margin-top:12px;opacity:1;}
-  .qwhy b{color:var(--grape);}
+  /* 關鍵字 → 選項 連連看 */
+  .link-map{display:grid;gap:10px;margin-top:6px;animation:fadeUp .4s ease;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .link-row{border-radius:14px;padding:12px 14px;border-left:6px solid #ccc;background:#fff;box-shadow:0 3px 10px var(--shadow);}
+  .link-row.lk-point{border-left-color:var(--mint);background:#eefaf8;}
+  .link-row.lk-kill{border-left-color:#ff9a9a;background:#fff2f2;}
+  .lk-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:700;font-size:15px;margin-bottom:4px;}
+  .lk-key{background:var(--highlight);border-radius:8px;padding:2px 10px;}
+  .lk-arrow{color:#b0a298;font-size:18px;}
+  .lk-point .lk-opt{color:#2fa89a;}
+  .lk-kill .lk-opt{color:#e06b6b;}
+  .lk-note{font-size:14px;color:#5a4f48;line-height:1.7;}
 
   footer{text-align:center;padding:54px 20px 64px;color:#8a7a70;font-size:15px;}
   footer .heart{color:var(--red);font-size:24px;}
@@ -308,7 +317,7 @@
 <!-- ========== 會考題庫 ========== -->
 <section>
   <h2 class="section-title">國中會考<span class="u">題庫挑戰</span></h2>
-  <p class="section-lead">用剛學的四個魔法來解會考風格的題目!讀題時記得斷句、圈關鍵字 📝<br><span id="bankCount" style="font-size:13px;"></span></p>
+  <p class="section-lead">每題三步:<b>①圈關鍵字 → ②選答案 → ③看關鍵字怎麼帶你找到答案</b> 🔑<br><span id="bankCount" style="font-size:13px;"></span></p>
 
   <div class="quiz-toolbar">
     <button class="chip active" data-filter="all">全部</button>
@@ -328,225 +337,359 @@ const QUESTIONS = [
   {
     subj:"his", tag:"歷史 · 台灣史 · 清領",
     stem:"一本清帝國時期的旅行紀錄寫道:「由府城(今台南)往北,沿路多見稻田與蔗園,商船雲集鹿港,載運糖、米往來於閩粵之間。」根據這段敘述,最能反映當時台灣的何種現象?",
+    keys:["清帝國時期","糖、米往來於閩粵"],
     opts:["以稻米、蔗糖與中國大陸進行貿易","已興建縱貫鐵路運送貨物","外國商人設立洋行大量收購茶葉","日本政府推動工業化生產"],
     ans:0,
-    why:"關鍵在「清帝國時期」「商船往來閩粵」。清領時期台灣以稻米、蔗糖等農產品和中國大陸(閩粵)進行貿易。鐵路、洋行收購茶葉是開港後或日治,工業化更晚,時間都對不上。"
+    links:[
+      {key:"糖、米往來於閩粵",to:0,type:"point",note:"糖、米賣到閩粵(福建廣東)=和中國大陸貿易"},
+      {key:"清帝國時期",to:1,type:"kill",note:"清代還沒有鐵路,鐵路是清末劉銘傳才開始"},
+      {key:"清帝國時期",to:2,type:"kill",note:"洋行大量收茶是「開港」以後的事"},
+      {key:"清帝國時期",to:3,type:"kill",note:"日本統治、工業化是日治時期,更晚"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 台灣史 · 國際競逐",
     stem:"某史料記載:「這個歐洲國家在1624年於今台南一帶建立熱蘭遮城,獎勵漢人來台開墾,並將稻米、蔗糖外銷。」文中「這個國家」是下列何者?",
+    keys:["1624年","熱蘭遮城","台南"],
     opts:["西班牙","荷蘭","葡萄牙","英國"],
     ans:1,
-    why:"關鍵是「1624年」「熱蘭遮城」「台南」。荷蘭人於1624年在台南建熱蘭遮城,統治南台灣。西班牙同時期是佔北台灣(基隆、淡水)。"
+    links:[
+      {key:"熱蘭遮城",to:1,type:"point",note:"熱蘭遮城是荷蘭人蓋的"},
+      {key:"台南",to:0,type:"kill",note:"同時期西班牙佔的是北台灣(基隆、淡水),不是台南"},
+      {key:"1624年",to:3,type:"kill",note:"英國沒有在1624年統治台灣"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 台灣史 · 鄭氏",
     stem:"某人物「1662年打敗荷蘭人,收復台灣,並在此設官治理、屯田養兵,以台灣作為反清復明的基地」。這位人物最可能是?",
+    keys:["打敗荷蘭人","反清復明"],
     opts:["劉銘傳","鄭成功","沈葆楨","施琅"],
     ans:1,
-    why:"「1662年打敗荷蘭」「反清復明」是鄭成功的關鍵事蹟。劉銘傳、沈葆楨是清領時期官員,施琅則是後來率清軍攻台的將領。"
+    links:[
+      {key:"打敗荷蘭人",to:1,type:"point",note:"1662年打敗荷蘭、收復台灣的是鄭成功"},
+      {key:"反清復明",to:3,type:"kill",note:"施琅後來是「幫清朝」攻打台灣的,立場相反"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 台灣史 · 開港",
-    stem:"1860年代後,台灣某項作物因外商設立洋行大量收購、外銷歐美而興盛,種植於北部丘陵。這項作物最可能是?",
+    stem:"1860年代開港後,台灣某項作物因外商設立洋行大量收購、外銷歐美而興盛,種植於北部丘陵。這項作物最可能是?",
+    keys:["外銷歐美","北部丘陵"],
     opts:["稻米","茶葉","甘蔗","棉花"],
     ans:1,
-    why:"關鍵是「1860年代開港後」「北部丘陵」「外銷歐美」。開港後茶(北部)、糖(南部)、樟腦成為出口大宗,其中北部丘陵種茶最符合。"
+    links:[
+      {key:"北部丘陵",to:1,type:"point",note:"北部丘陵、外銷歐美 = 茶"},
+      {key:"外銷歐美",to:2,type:"kill",note:"甘蔗(糖)主要種在南部平原,不是北部丘陵"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 台灣史 · 日治",
     stem:"某展覽介紹一項建設:「1930年完工,引濁水溪等水源,灌溉嘉南平原十五萬甲農田,使原本看天田變成可種稻的良田。」這項建設最可能是下列何者?",
+    keys:["1930年","嘉南平原","灌溉"],
     opts:["劉銘傳鐵路","嘉南大圳","桃園大圳","十大建設"],
     ans:1,
-    why:"關鍵是「1930年」「嘉南平原」「灌溉」。嘉南大圳由八田與一設計、1930年完工,大幅改善嘉南平原灌溉。用時間+地點兩個線索就能鎖定答案。"
+    links:[
+      {key:"嘉南平原",to:1,type:"point",note:"灌溉嘉南平原的水利工程就是嘉南大圳"},
+      {key:"嘉南平原",to:2,type:"kill",note:"桃園大圳灌溉的是桃園台地,不是嘉南"},
+      {key:"1930年",to:0,type:"kill",note:"劉銘傳鐵路是清末(1880年代),時間不對"},
+      {key:"1930年",to:3,type:"kill",note:"十大建設是1970年代,時間太晚"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 台灣史 · 日治",
-    stem:"林獻堂等人在日治時期推動「臺灣議會設置請願運動」,持續向日本國會請願。他們主要的訴求是下列何者?",
+    stem:"林獻堂等人在日治時期推動「臺灣議會設置請願運動」,持續向日本國會請願,爭取台灣人參與政治的權利。他們主要的訴求是下列何者?",
+    keys:["議會設置","參與政治的權利"],
     opts:["爭取台灣獨立建國","爭取參與治理台灣事務的機會","要求日本歸還台灣給清朝","推動皇民化運動"],
     ans:1,
-    why:"議會設置請願運動是要求設立台灣人可參與的議會、爭取參政與自治權利,不是獨立,也不是要回歸清朝。這是日治時期非武裝抗日的代表。"
+    links:[
+      {key:"參與政治的權利",to:1,type:"point",note:"要「參與治理」=爭取自治與參政"},
+      {key:"議會設置",to:0,type:"kill",note:"是要「設議會參政」,不是要獨立建國"},
+      {key:"議會設置",to:3,type:"kill",note:"皇民化是總督府推的同化政策,和請願運動立場相反"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 台灣史 · 日治",
-    stem:"日治後期,總督府推動「國語家庭」認定、鼓勵台灣人改日本姓名、參拜神社。這些措施屬於下列哪一項政策?",
+    stem:"日治後期,總督府推動「國語家庭」認定、鼓勵台灣人改日本姓名、參拜神社,想把台灣人同化為日本人。這些措施屬於下列哪一項政策?",
+    keys:["改日本姓名","參拜神社"],
     opts:["土地調查","皇民化運動","三七五減租","戒嚴"],
     ans:1,
-    why:"「改日本姓名」「參拜神社」「國語(日語)家庭」都是要把台灣人同化為日本人,屬於1937年後的皇民化運動。三七五減租、戒嚴都是戰後的事。"
+    links:[
+      {key:"改日本姓名",to:1,type:"point",note:"改姓名、拜神社、講日語=把台灣人變日本人=皇民化"},
+      {key:"參拜神社",to:2,type:"kill",note:"三七五減租是戰後國民政府的土地改革,時代不對"},
+      {key:"參拜神社",to:3,type:"kill",note:"戒嚴是戰後的事,不是日治"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 台灣史 · 戰後",
     stem:"下列台灣重大歷史事件,依時間先後排列,何者正確? ㄅ.二二八事件 ㄆ.政府宣布戒嚴 ㄇ.解除戒嚴 ㄈ.第一次政黨輪替",
+    keys:["二二八事件","解除戒嚴","第一次政黨輪替"],
     opts:["ㄅㄆㄇㄈ","ㄆㄅㄈㄇ","ㄇㄅㄆㄈ","ㄅㄇㄆㄈ"],
     ans:0,
-    why:"二二八(1947)→戒嚴(1949)→解嚴(1987)→第一次政黨輪替(2000)。這是會考很愛考的「時間軸排序」,用第2個魔法把年代畫成一條線就不會亂。"
+    links:[
+      {key:"二二八事件",to:0,type:"point",note:"二二八(1947)最早,一定排第一"},
+      {key:"解除戒嚴",to:0,type:"point",note:"戒嚴(1949)在解嚴(1987)之前,所以ㄆ在ㄇ前"},
+      {key:"第一次政黨輪替",to:0,type:"point",note:"政黨輪替(2000)最晚,排最後"}
+    ]
   },
   // ============ 歷史 · 中國史 ============
   {
     subj:"his", tag:"歷史 · 中國史 · 秦",
-    stem:"某皇帝「統一天下後,推行書同文、車同軌,統一度量衡與貨幣,並修築長城抵禦匈奴」。這位皇帝是?",
+    stem:"某皇帝統一天下後,推行書同文、車同軌,統一度量衡與貨幣,並修築長城抵禦匈奴。這位皇帝是?",
+    keys:["書同文、車同軌","修築長城"],
     opts:["漢武帝","秦始皇","唐太宗","宋太祖"],
     ans:1,
-    why:"「統一文字、度量衡、貨幣」「修長城」是秦始皇的著名措施。他是中國第一個統一帝國的皇帝。"
+    links:[
+      {key:"書同文、車同軌",to:1,type:"point",note:"統一文字、度量衡是秦始皇最有名的政策"},
+      {key:"修築長城",to:1,type:"point",note:"連接萬里長城抵禦匈奴也是秦始皇"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 中國史 · 唐",
-    stem:"一位外國商人記載:「這座城市有東西兩市,胡商雲集,波斯、大食商人在此買賣絲綢、瓷器,夜晚實施宵禁,坊市分明。」這座城市最可能是下列何者?",
+    stem:"一位外國商人記載:「這座城市有東西兩市,胡商雲集,夜晚實施宵禁,坊市分明。」這座城市最可能是下列何者?",
+    keys:["坊市分明","宵禁"],
     opts:["宋代的開封","唐代的長安","明代的北京","清代的廣州"],
     ans:1,
-    why:"關鍵字是「東西兩市」「坊市分明」「宵禁」。唐代長安採坊市制、有東西市、夜間宵禁。宋代開封已打破坊市界線、出現夜市,所以不是宋代。"
+    links:[
+      {key:"坊市分明",to:1,type:"point",note:"住的坊、買賣的市分開=唐代長安的坊市制"},
+      {key:"宵禁",to:0,type:"kill",note:"宋代開封已有夜市、沒宵禁,正好相反"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 中國史 · 宋",
-    stem:"某文獻描述一座城市:「街市店鋪林立,夜市直到三更才結束,還有專門的娛樂場所『瓦舍』,不再有坊市與宵禁的限制。」這最可能是哪個朝代的城市?",
+    stem:"某文獻描述一座城市:「街市店鋪林立,夜市直到三更才結束,還有娛樂場所『瓦舍』,不再有坊市與宵禁的限制。」這最可能是哪個朝代的城市?",
+    keys:["夜市","瓦舍","不再有坊市與宵禁"],
     opts:["秦代","唐代","宋代","元代"],
     ans:2,
-    why:"關鍵是「夜市」「瓦舍」「不再有坊市宵禁限制」。宋代商業發達,打破了唐代的坊市制,出現夜市與瓦舍(娛樂場所)。這題常和唐代長安做對比。"
+    links:[
+      {key:"夜市",to:2,type:"point",note:"有夜市、營業到三更=宋代商業發達"},
+      {key:"不再有坊市與宵禁",to:1,type:"kill",note:"唐代還有坊市和宵禁,這裡說「不再有」,所以不是唐"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 中國史 · 明清",
     stem:"某小說寫道:「吳生是徽州人,在這個徽州商人活躍全國、形成商幫組織的時代經商致富。」文中「商幫活躍」的現象最可能出現於下列哪個時期?",
+    keys:["徽州商人","商幫組織"],
     opts:["漢代","唐代","明清時期","秦代"],
     ans:2,
-    why:"關鍵是「徽州商人」「商幫組織」。明清時期商業繁榮,出現徽商、晉商等地域性商幫。這是會考社會科「商業組織發展」的常見取材。"
+    links:[
+      {key:"商幫組織",to:2,type:"point",note:"徽商、晉商等地域商幫是明清才興盛"},
+      {key:"徽州商人",to:2,type:"point",note:"徽州商人(徽商)是明清著名商幫"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 中國史 · 晚清",
-    stem:"晚清一位官員表示:「我們原本在對外貿易上設有禁區,如今決定開放,凡符合國際貿易慣例者皆可前來。」這段話最能反映晚清的何種處境?",
-    opts:["清廷主動追求富強、積極改革開放","被列強逼迫,被動開放通商","即將與美國建交","準備收回租界"],
+    stem:"晚清一位官員表示:「我們原本在對外貿易上設有禁區,如今被迫開放,凡符合列強要求者皆可前來通商。」這段話最能反映晚清的何種處境?",
+    keys:["晚清","被迫開放"],
+    opts:["清廷主動追求富強、積極改革","被列強逼迫,被動開放通商","即將與美國建交","準備收回租界"],
     ans:1,
-    why:"晚清的通商口岸多是因戰敗簽訂不平等條約後「被迫」開放,而非主動。要注意題幹語氣看似主動,但放在晚清背景下,實際是被列強壓力所逼。"
+    links:[
+      {key:"被迫開放",to:1,type:"point",note:"「被迫」「列強要求」=被動開放,不是自願"},
+      {key:"被迫開放",to:0,type:"kill",note:"既然是「被迫」,就不是「主動」追求富強"}
+    ]
   },
   // ============ 歷史 · 世界史 ============
   {
     subj:"his", tag:"歷史 · 世界史 · 大航海",
-    stem:"某文獻提到:「15世紀末,這個國家的航海家在王室支持下向西航行,想尋找通往東方的新航路,卻意外抵達美洲。」文中「這個國家」最可能是?",
+    stem:"某文獻提到:「15世紀末,這個國家的航海家在王室支持下向西航行,想找通往東方的新航路,卻意外抵達美洲。」文中「這個國家」最可能是?",
+    keys:["15世紀末","向西航行","抵達美洲"],
     opts:["英國","西班牙","荷蘭","日本"],
     ans:1,
-    why:"關鍵是「15世紀末」「向西航行」「抵達美洲」——這是哥倫布,由西班牙王室(伊莎貝拉女王)資助。荷蘭、英國的海外擴張較晚。"
+    links:[
+      {key:"抵達美洲",to:1,type:"point",note:"向西航行意外到美洲=哥倫布,由西班牙王室資助"},
+      {key:"15世紀末",to:2,type:"kill",note:"荷蘭、英國的海外擴張都比較晚(17世紀)"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 世界史 · 工業革命",
-    stem:"18世紀某國「因瓦特改良蒸汽機,工廠大量出現,棉紡織業機械化,都市人口快速增加」,成為世界第一個工業化國家。這個國家是?",
+    stem:"18世紀某國因瓦特改良蒸汽機,工廠大量出現,棉紡織業機械化,成為世界第一個工業化的國家。這個國家是?",
+    keys:["瓦特改良蒸汽機","第一個工業化"],
     opts:["法國","英國","美國","德國"],
     ans:1,
-    why:"「瓦特改良蒸汽機」「第一個工業化國家」指的是英國。工業革命最早於18世紀中葉在英國展開。"
+    links:[
+      {key:"第一個工業化",to:1,type:"point",note:"工業革命最早發生在英國"},
+      {key:"瓦特改良蒸汽機",to:1,type:"point",note:"瓦特是英國人,蒸汽機帶動英國工業化"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 世界史 · 兩次大戰",
-    stem:"某條約在1919年簽訂,「規定德國須負戰爭全責、割地賠款、限制軍備」,埋下日後不滿的種子。這個條約是?",
+    stem:"某條約在1919年簽訂,規定德國須負戰爭全責、割地賠款、限制軍備,埋下日後不滿的種子。這個條約是?",
+    keys:["1919年","德國","割地賠款"],
     opts:["凡爾賽條約","南京條約","馬關條約","波茨坦宣言"],
     ans:0,
-    why:"「1919年」「德國負戰爭全責、賠款」是一戰後的《凡爾賽條約》。南京、馬關是中國近代不平等條約,波茨坦宣言是二戰末期。"
+    links:[
+      {key:"德國",to:0,type:"point",note:"一戰後懲罰德國的是《凡爾賽條約》"},
+      {key:"1919年",to:1,type:"kill",note:"南京、馬關條約是中國近代的不平等條約,和德國無關"}
+    ]
   },
   {
     subj:"his", tag:"歷史 · 世界史 · 古文明",
-    stem:"某古文明「位於兩條大河之間,發展出楔形文字與漢摩拉比法典,以泥磚建造神廟」。這個文明最可能是?",
+    stem:"某古文明位於兩條大河之間,發展出楔形文字與漢摩拉比法典,以泥磚建造神廟。這個文明最可能是?",
+    keys:["兩條大河之間","楔形文字"],
     opts:["埃及文明","兩河流域文明","印度文明","希臘文明"],
     ans:1,
-    why:"「兩條大河之間」「楔形文字」「漢摩拉比法典」都是兩河流域(美索不達米亞)文明的特徵。埃及是尼羅河、象形文字。"
+    links:[
+      {key:"兩條大河之間",to:1,type:"point",note:"兩條大河之間=兩河流域(美索不達米亞)"},
+      {key:"楔形文字",to:0,type:"kill",note:"埃及是尼羅河、用象形文字,不是楔形字"}
+    ]
   },
 
   // ============ 地理 · 台灣 ============
   {
     subj:"geo", tag:"地理 · 台灣 · 地名",
     stem:"台灣有些地名如「五股」「五結」「頭份」,反映出先民開墾時「按出資或人數分股合作開墾」的歷史。這類地名最能反映下列哪一種發展脈絡?",
+    keys:["分股合作開墾"],
     opts:["軍事布署","結社墾荒","族群界線","宗教信仰"],
     ans:1,
-    why:"「股」「結」「份」都和先民集資、分工合作開墾土地有關,反映的是結社墾荒的拓墾過程。這是會考很愛考的「從地名判斷發展脈絡」題型。"
+    links:[
+      {key:"分股合作開墾",to:1,type:"point",note:"分股、集資、合作開墾=結社墾荒"},
+      {key:"分股合作開墾",to:0,type:"kill",note:"和軍隊駐防無關,所以不是軍事布署"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 台灣 · 環境議題",
     stem:"近年台灣西南部沿海地區,因長期超抽地下水養殖,加上河川上游廣建水庫攔沙,最容易出現下列哪一種環境問題?",
+    keys:["超抽地下水","西南部沿海"],
     opts:["土石流頻繁發生","地層下陷與海水倒灌","火山噴發","沙塵暴增加"],
     ans:1,
-    why:"關鍵是「西南部沿海」「超抽地下水」。抽太多地下水會造成地層下陷,沿海地區因此海水倒灌。這是台灣西南沿海(如雲林、嘉義)的著名環境議題。"
+    links:[
+      {key:"超抽地下水",to:1,type:"point",note:"抽太多地下水"},
+      {key:"西南部沿海",to:0,type:"kill",note:"土石流發生在山區陡坡,不是沿海平原"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 台灣 · 農業轉型",
-    stem:"某茶園報導:「為了和越南、斯里蘭卡的低價茶競爭,茶農導入滴灌技術精準用水,並用無人機巡視、噴藥與管理採收時間。」這些措施最主要可達到什麼成效?",
+    stem:"某茶園報導:「為了和越南、斯里蘭卡的低價茶競爭,茶農導入滴灌技術,並用無人機巡視、噴藥與管理採收。」這些措施最主要可達到什麼成效?",
+    keys:["無人機","滴灌技術"],
     opts:["利於轉型成休閒農場","降低勞力成本占總成本的比例","增加稻米產量","擴大果園面積"],
     ans:1,
-    why:"關鍵在「無人機」「機具」取代人力。導入科技的主要目的是減少人工、降低勞力成本比例。題幹沒提到休閒、稻米或果園,不能自己腦補。"
+    links:[
+      {key:"無人機",to:1,type:"point",note:"用機器取代人力"},
+      {key:"無人機",to:2,type:"kill",note:"題目講的是茶園,沒提到稻米"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 台灣 · 地形",
-    stem:"台灣的河流大多「短、急、流量變化大」。造成這種特性的主要原因是下列何者?",
+    stem:"台灣的河流大多具有「短、急、流量變化大」的特性。造成這種特性的主要原因是下列何者?",
+    keys:["短、急","流量變化大"],
     opts:["地形山高坡陡、降水集中","位於沙漠氣候區","湖泊眾多","位於平原地形"],
     ans:0,
-    why:"台灣中央山脈高聳、坡度陡,河流短而流急;加上降水集中在夏季,所以流量變化大。這是台灣地形與水文的基本特徵。"
+    links:[
+      {key:"短、急",to:0,type:"point",note:"山高坡陡"},
+      {key:"流量變化大",to:0,type:"point",note:"降水集中夏季"},
+      {key:"短、急",to:3,type:"kill",note:"平原地形河流會又長又緩,和「短急」矛盾"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 台灣 · 氣候",
     stem:"台灣夏季常有午後雷陣雨,且夏秋之際多颱風侵襲帶來豪雨。造成台灣夏季多雨的主要原因是?",
+    keys:["夏季","颱風"],
     opts:["東北季風","西南季風與颱風","反聖嬰現象","寒流南下"],
     ans:1,
-    why:"台灣夏季吹西南季風、帶來水氣,加上夏秋颱風,所以夏季多雨。冬季則是東北季風影響北部、東北部降雨。"
+    links:[
+      {key:"颱風",to:1,type:"point",note:"夏季吹西南季風+夏秋颱風,帶來大量雨水"},
+      {key:"夏季",to:0,type:"kill",note:"東北季風是冬天吹的,影響冬季降雨"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 台灣 · 海岸",
     stem:"台灣東部的蘇花海岸與西部海岸相比,具有「地勢陡峭、缺乏平原、多岩岸」的特徵。造成東西部海岸差異的主因是?",
+    keys:["陡峭","多岩岸"],
     opts:["東部離赤道較近","中央山脈逼近東部海岸","西部有較多颱風","東部人口較多"],
     ans:1,
-    why:"中央山脈偏東,逼近東部海岸,所以東部多陡峭岩岸、缺乏平原;西部因河流堆積形成較寬廣的平原與沙岸。"
+    links:[
+      {key:"陡峭",to:1,type:"point",note:"中央山脈偏東、逼近海岸"},
+      {key:"多岩岸",to:0,type:"kill",note:"陡峭岩岸和「離赤道遠近」沒有關係"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 台灣 · 人口",
     stem:"台灣近年出生率下降、老年人口比例上升,人口金字塔逐漸從「金字塔型」變成「倒金字塔型」。這反映台灣面臨下列哪一項問題?",
+    keys:["出生率下降","老年人口比例上升"],
     opts:["人口爆炸","少子化與高齡化","大量人口移入","性別比例失衡"],
     ans:1,
-    why:"出生率低(少子化)+老年人口多(高齡化),會使人口金字塔頭重腳輕。這是台灣、日本等已開發地區共同的人口問題。"
+    links:[
+      {key:"出生率下降",to:1,type:"point",note:"生得少=少子化"},
+      {key:"老年人口比例上升",to:1,type:"point",note:"老人變多=高齡化"},
+      {key:"出生率下降",to:0,type:"kill",note:"生得少怎麼會是「人口爆炸」?正好相反"}
+    ]
   },
   // ============ 地理 · 中國 ============
   {
     subj:"geo", tag:"地理 · 中國 · 地形",
     stem:"中國地勢「西高東低,呈三級階梯狀分布」,大河多由西向東流入太平洋。這種地勢對中國的影響,下列何者最合理?",
+    keys:["西高東低","由西向東流"],
     opts:["大河多自東向西流","利於東西向的水運與灌溉","造成南北無法往來","使西部降水最多"],
     ans:1,
-    why:"西高東低使長江、黃河等大河由西向東流,利於東西向的航運與灌溉。要注意選項A「自東向西」正好相反,是陷阱。"
+    links:[
+      {key:"由西向東流",to:1,type:"point",note:"大河由西向東流"},
+      {key:"由西向東流",to:0,type:"kill",note:"題目說「由西向東」,選項A說「由東向西」剛好相反"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 中國 · 環境",
     stem:"黃河中游流經黃土高原,河水夾帶大量泥沙,到下游河床淤積抬高,形成「地上河」。這最容易造成下列哪一種問題?",
+    keys:["大量泥沙","地上河"],
     opts:["下游易氾濫成災","上游經常結冰","河水過於清澈","下游缺水乾涸"],
     ans:0,
-    why:"泥沙淤積使河床高於兩岸地面(地上河),一旦水量大就容易潰堤氾濫。黃河「善淤、善決、善徙」正是這個原因。"
+    links:[
+      {key:"地上河",to:0,type:"point",note:"河床高過兩岸"},
+      {key:"大量泥沙",to:2,type:"kill",note:"泥沙多,河水一定混濁,不可能「過於清澈」"}
+    ]
   },
   // ============ 地理 · 世界 ============
   {
     subj:"geo", tag:"地理 · 世界 · 宗教",
     stem:"世界上穆斯林(伊斯蘭教徒)人口最多的國家,並不在中東,而是位於東南亞。這個國家最可能是下列何者?",
+    keys:["並不在中東","東南亞"],
     opts:["沙烏地阿拉伯","印尼","印度","埃及"],
     ans:1,
-    why:"關鍵是「最多」+「東南亞」。全世界穆斯林人口最多的國家是印尼(約2.2億)。沙烏地在中東、埃及在北非、印度以印度教為主,位置都不符合。"
+    links:[
+      {key:"東南亞",to:1,type:"point",note:"位於東南亞+穆斯林最多=印尼"},
+      {key:"東南亞",to:0,type:"kill",note:"沙烏地阿拉伯在中東,位置不符"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 世界 · 氣候",
     stem:"某地氣候特徵為「夏季炎熱乾燥、冬季溫暖多雨」,適合種植葡萄、橄欖。這種氣候類型與下列哪個地區最相符?",
+    keys:["夏季炎熱乾燥、冬季溫暖多雨","葡萄、橄欖"],
     opts:["地中海沿岸","亞馬孫盆地","撒哈拉沙漠","西伯利亞"],
     ans:0,
-    why:"「夏乾冬雨」「葡萄、橄欖」是地中海型氣候的招牌特徵,分布於地中海沿岸、加州、智利中部等地。這是氣候類型判讀的必考題。"
+    links:[
+      {key:"夏季炎熱乾燥、冬季溫暖多雨",to:0,type:"point",note:"夏乾冬雨=地中海型氣候"},
+      {key:"葡萄、橄欖",to:2,type:"kill",note:"撒哈拉是沙漠,幾乎不下雨,種不了葡萄橄欖"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 世界 · 氣候",
-    stem:"某地「全年高溫多雨,森林茂密、樹種繁多,形成茂密的熱帶雨林」。這種氣候最可能分布於下列何處?",
+    stem:"某地全年高溫多雨,森林茂密、樹種繁多,形成茂密的熱帶雨林。這種氣候最可能分布於下列何處?",
+    keys:["全年高溫多雨","熱帶雨林"],
     opts:["赤道附近","南北極","沙漠中心","高山山頂"],
     ans:0,
-    why:"「全年高溫多雨」「熱帶雨林」是熱帶雨林氣候,分布在赤道附近(如亞馬孫、剛果盆地、東南亞)。這題靠「高溫+多雨+雨林」三個詞就能判斷。"
+    links:[
+      {key:"全年高溫多雨",to:0,type:"point",note:"全年又熱又濕=赤道附近"},
+      {key:"全年高溫多雨",to:1,type:"kill",note:"南北極終年寒冷,不可能高溫"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 世界 · 區域",
     stem:"季風亞洲(如中國南方、東南亞、南亞)夏季高溫多雨,適合種植水稻,因此形成「人口稠密、精耕細作」的特色。這說明了地理上哪一種推導關係?",
+    keys:["夏季高溫多雨","適合種植水稻","人口稠密"],
     opts:["氣候影響農業與人口分布","地形決定宗教信仰","緯度決定語言","礦產決定人口"],
     ans:0,
-    why:"季風氣候(夏雨)→適合水稻→養活大量人口→人口稠密。這是會考強調的「位置→氣候→產業→人口」邏輯鏈,不是死背而是理解推導。"
+    links:[
+      {key:"夏季高溫多雨",to:0,type:"point",note:"氣候(夏雨)"},
+      {key:"適合種植水稻",to:0,type:"point",note:"適合種稻是「氣候影響農業」的環節"}
+    ]
   },
   {
     subj:"geo", tag:"地理 · 世界 · 地圖判讀",
     stem:"閱讀一張沒有指北針的地圖時,若沒有特別標示,一般依照製圖慣例,地圖的「上方」通常代表哪個方位?",
+    keys:["沒有指北針","上方"],
     opts:["東","西","南","北"],
     ans:3,
-    why:"地圖製圖慣例是「上北、下南、左西、右東」。但要小心:會考常故意給有指北針或標示不同方位的圖來設陷阱,所以看地圖第一步一定要先找方位標示!"
+    links:[
+      {key:"上方",to:3,type:"point",note:"製圖慣例「上北下南、左西右東」,上方=北"},
+      {key:"沒有指北針",to:3,type:"point",note:"沒指北針時就用預設慣例:上方為北"}
+    ]
   }
 ];
 
@@ -564,129 +707,107 @@ const letters = ['A','B','C','D'];
 
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
-/* ---- 斷句引擎:把題幹切成「詞塊」,詞塊之間放一個可點的逗號位置 ---- */
-// 提問/轉折詞:在這些詞「前面」也是好的斷句點
-// 「提問句」的開頭詞:整句的最後一個大停頓,通常在這些詞前面
-const Q_CUES = ['根據上','根據這','根據','請問','這位','這個','這項','這種','這座','這些','這說明','這反映','這類','文中','由此','上述','這是說','造成這','造成該'];
-
-// 只在「最關鍵的 1~2 個大停頓」放斷句點:
-//   ① 情境結束點:第一個「。」或「」」之後(把背景敘述和提問分開)
-//   ② 提問開始點:題目最後的「請問/這位/下列…」之前
-// 其餘逗號都「留在文字裡」,不變成圈圈,才不會滿滿都是逗號。
-function buildChunks(stem){
-  const cut = new Set();   // 要切開的字元索引(在該索引「之前」斷開)
-
-  // ② 提問開始點:從後半段找提問詞
-  let qPos = -1;
-  Q_CUES.forEach(w=>{
-    const idx = stem.lastIndexOf(w);
-    if(idx > stem.length*0.35 && (qPos===-1 || idx<qPos)) qPos = idx;
+/* 把題幹中的關鍵字詞包成可點的 <mark>,其餘文字照常顯示 */
+function renderStemWithKeys(stem, keys){
+  let html = stem;
+  // 依長度由長到短取代,避免短詞先吃掉長詞
+  const sorted = [...keys].sort((a,b)=>b.length-a.length);
+  sorted.forEach((k,ki)=>{
+    const idx = keys.indexOf(k);
+    // 用一個不會被重複取代的佔位
+    html = html.split(k).join(`\u0001${idx}\u0001`);
   });
-  if(qPos > 0) cut.add(qPos);
-
-  // ① 情境結束點:第一個 」或。 的後面(且要在提問點之前、不要太靠近開頭或結尾)
-  const m = stem.match(/[」。]/);
-  if(m){
-    const p = m.index + 1;
-    if(p > 6 && p < stem.length-4 && (qPos===-1 || p < qPos-2)) cut.add(p);
-  }
-
-  // 依 cut 位置切段(最多就 2 個點 → 3 段)
-  const points = [...cut].sort((a,b)=>a-b);
-  const segs=[]; let prev=0;
-  points.forEach(p=>{ segs.push(stem.slice(prev,p)); prev=p; });
-  segs.push(stem.slice(prev));
-  // gaps 全部都是「最佳」(因為我們只放了關鍵點)
-  const gaps = new Array(Math.max(segs.length-1,0)).fill(true);
-  return {segs, gaps};
-}
-
-function renderStem(stem){
-  const {segs, gaps} = buildChunks(stem);
-  let html='<div class="chunk-stem" data-best="'+gaps.map(g=>g?1:0).join('')+'">';
-  segs.forEach((sg,i)=>{
-    html+='<span class="seg">'+sg+'</span>';
-    if(i<segs.length-1){
-      html+='<span class="cgap" data-i="'+i+'" title="覺得該停頓就點一下"></span>';
-    }
-  });
-  html+='</div>';
+  // 還原成 span
+  html = html.replace(/\u0001(\d+)\u0001/g, (m,i)=>`<span class="kw" data-k="${i}">${keys[+i]}</span>`);
   return html;
 }
+
+const TYPE_LABEL = { point:{cls:'lk-point', icon:'✅', word:'指向'}, kill:{cls:'lk-kill', icon:'❌', word:'刪掉'} };
 
 function renderBank(){
   bank.innerHTML='';
   answered=0; correct=0; updateScore();
   QUESTIONS.forEach((q)=>{
-    const order = shuffle([0,1,2,3]);
+    const order = shuffle([0,1,2,3]);         // 顯示順序 → 原始index
     const newAns = order.indexOf(q.ans);
+    // 原始選項index → 現在顯示的字母
+    const pos = {}; order.forEach((origIdx,showIdx)=>{ pos[origIdx]=showIdx; });
+
     const card = document.createElement('div');
     card.className = 'qcard';
     card.dataset.subj = q.subj;
-    const built = buildChunks(q.stem);
-    const hasChunk = built.gaps.length > 0;
-    const stemHtml = hasChunk ? renderStem(q.stem) : ('<div class="chunk-stem" data-best="">'+q.stem+'</div>');
+
     card.innerHTML = `
       <span class="qtag ${q.subj}">${q.tag}</span>
-      ${hasChunk ? '<div class="chunk-hint">✏️ 第一步:找出<b>1~2 個最該停頓</b>的地方點上逗號(通常在<b>敘述講完</b>、<b>問題開始</b>之處),再作答!</div>' : ''}
-      <div class="qstem">${stemHtml}</div>
-      ${hasChunk ? `<div class="chunk-actions">
-        <button class="mini-btn checkChunkBtn">看看我斷得好不好 ✨</button>
-        <span class="chunk-fb"></span>
-      </div>` : ''}
-      <div class="qopts${hasChunk ? ' locked' : ''}">
-        ${order.map((oi,i)=>`<button class="qopt" data-i="${i}"><b>${letters[i]}</b> ${q.opts[oi]}</button>`).join('')}
+      <div class="step-badge">第 1 步 · 圈出關鍵字 🔑</div>
+      <div class="ks-hint">讀題目,把你覺得<b>「決定答案」的關鍵字</b>點亮(可點多個),再按下面按鈕對答案。</div>
+      <div class="qstem">${renderStemWithKeys(q.stem, q.keys)}</div>
+      <div class="ks-actions">
+        <button class="mini-btn revealKeysBtn">看看關鍵字圈對了嗎 🔍</button>
+        <span class="ks-fb"></span>
       </div>
-      <div class="qwhy"><b>💡 解題:</b>${q.why}</div>
+
+      <div class="step-badge step2">第 2 步 · 選答案 ✏️</div>
+      <div class="qopts locked">
+        ${order.map((origIdx,showIdx)=>`<button class="qopt" data-i="${showIdx}"><b>${letters[showIdx]}</b> ${q.opts[origIdx]}</button>`).join('')}
+      </div>
+
+      <div class="step-badge step3 hide">第 3 步 · 關鍵字怎麼帶你找到答案 🧭</div>
+      <div class="link-map hide"></div>
     `;
     bank.appendChild(card);
 
-    // 斷句:點 gap
-    card.querySelectorAll('.cgap').forEach(g=>{
-      g.addEventListener('click',()=>g.classList.toggle('on'));
+    const stemEl = card.querySelector('.qstem');
+    const ksFb = card.querySelector('.ks-fb');
+    const optsWrap = card.querySelector('.qopts');
+    const revealBtn = card.querySelector('.revealKeysBtn');
+
+    // 點關鍵字 → 標記為選取
+    stemEl.querySelectorAll('.kw').forEach(kw=>{
+      kw.addEventListener('click',()=>kw.classList.toggle('picked'));
     });
 
-    // 檢查斷句 → 解鎖選項
-    const stemEl = card.querySelector('.chunk-stem');
-    const bestStr = stemEl.dataset.best;
-    const fb = card.querySelector('.chunk-fb');
-    const optsWrap = card.querySelector('.qopts');
-    const checkBtn = card.querySelector('.checkChunkBtn');
-    if(checkBtn){
-      checkBtn.addEventListener('click',()=>{
-        const picked=[...card.querySelectorAll('.cgap')].filter(g=>g.classList.contains('on')).map(g=>+g.dataset.i);
-        let bestIdx=[]; for(let i=0;i<bestStr.length;i++){ if(bestStr[i]==='1') bestIdx.push(i); }
-        const hit = bestIdx.filter(b=>picked.includes(b)).length;
-        card.querySelectorAll('.cgap').forEach(g=>{
-          if(bestStr[+g.dataset.i]==='1'){ g.classList.add('good'); g.classList.remove('on'); }
-        });
-        if(hit===bestIdx.length && picked.length<=bestIdx.length+1){
-          fb.textContent='🎉 斷得剛剛好!綠色就是最佳位置'; fb.style.color='#3fb8a8';
-        } else if(hit>=1){
-          fb.textContent='👍 不錯!綠色勾勾才是最佳停頓點,對照看看'; fb.style.color='#e8843e';
-        } else {
-          fb.textContent='💡 綠色勾勾的地方最適合停頓喔!'; fb.style.color='#e8547c';
-        }
-        optsWrap.classList.remove('locked');
-        checkBtn.disabled=true;
-      });
-    }
+    // 看關鍵字對不對 → 全部關鍵字亮起來 → 解鎖選項
+    revealBtn.addEventListener('click',()=>{
+      const picked = stemEl.querySelectorAll('.kw.picked').length;
+      stemEl.querySelectorAll('.kw').forEach(kw=>kw.classList.add('reveal'));
+      if(picked===0){
+        ksFb.textContent='這些黃色的詞就是關鍵字!先看清楚它們 👀'; ksFb.style.color='#e8843e';
+      } else {
+        ksFb.textContent='亮黃色的都是關鍵字,對照看看你圈的一不一樣 ✨'; ksFb.style.color='#3fb8a8';
+      }
+      optsWrap.classList.remove('locked');
+      revealBtn.disabled = true;
+    });
 
-    // 作答
+    // 選答案 → 顯示第3步:關鍵字 → 選項 的連連看
     const opts = card.querySelectorAll('.qopt');
-    const why = card.querySelector('.qwhy');
     opts.forEach(op=>{
       op.addEventListener('click',()=>{
-        if(optsWrap.classList.contains('locked')) return; // 還沒斷句不能答
+        if(optsWrap.classList.contains('locked')) return;
         if(card.dataset.done) return;
-        card.dataset.done = '1';
-        const pick = +op.dataset.i;
+        card.dataset.done='1';
+        const pick=+op.dataset.i;
         opts.forEach(o=>o.style.pointerEvents='none');
         if(pick===newAns){ op.classList.add('qcorrect'); correct++; }
         else { op.classList.add('qwrong'); opts[newAns].classList.add('qcorrect'); }
-        why.classList.add('show');
-        answered++;
-        updateScore();
+        answered++; updateScore();
+
+        // 建立「關鍵字 → 選項」關聯卡
+        const mapEl = card.querySelector('.link-map');
+        let rows = q.links.map(lk=>{
+          const t = TYPE_LABEL[lk.type];
+          const showLetter = letters[pos[lk.to]];   // 該選項現在顯示的字母
+          const optText = q.opts[lk.to];            // 該選項的文字
+          const verb = lk.type==='point' ? '所以選' : '所以刪掉';
+          return `<div class="link-row ${t.cls}">
+            <div class="lk-top"><span class="lk-key">🔑 ${lk.key}</span><span class="lk-arrow">→</span><span class="lk-opt">${t.icon} ${verb} ${showLetter}</span></div>
+            <div class="lk-note">${lk.note}</div>
+          </div>`;
+        }).join('');
+        mapEl.innerHTML = rows;
+        card.querySelector('.step3').classList.remove('hide');
+        mapEl.classList.remove('hide');
       });
     });
   });
