@@ -176,6 +176,105 @@
   @keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.3)}100%{transform:scale(1)}}
 
   @media(max-width:520px){.opts{grid-template-columns:1fr;}}
+  /* ===== 五大策略模組 ===== */
+  .os-map{display:grid;justify-items:center;gap:2px;margin:0 auto 16px;max-width:340px;}
+  .os-item{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:16px;
+    padding:10px 18px;width:100%;box-shadow:0 4px 12px var(--shadow);cursor:pointer;transition:.15s;}
+  .os-item:hover{transform:translateX(4px);}
+  .os-n{width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Baloo 2';}
+  .os-item:nth-of-type(3) .os-n{background:var(--mint);}
+  .os-item:nth-of-type(5) .os-n{background:var(--peach);color:#7a4a2a;}
+  .os-item:nth-of-type(7) .os-n{background:var(--grape);}
+  .os-item:nth-of-type(9) .os-n{background:var(--red);}
+  .os-item b{font-size:15.5px;}
+  .os-item small{display:block;color:#8a7a70;font-size:12.5px;}
+  .os-arrow{color:#c9b8a8;font-size:16px;line-height:1;}
+  .prog-wrap{max-width:340px;margin:8px auto 4px;background:#eee;border-radius:20px;height:14px;overflow:hidden;}
+  .prog-bar{height:100%;width:0;border-radius:20px;transition:width .5s ease;
+    background:linear-gradient(90deg,var(--blue),var(--mint),var(--grape));}
+  .prog-txt{text-align:center;font-size:13.5px;color:#8a7a70;font-weight:700;margin-bottom:24px;}
+
+  .mod{background:var(--card);border-radius:24px;padding:24px 22px;margin-bottom:24px;
+    box-shadow:0 10px 26px var(--shadow);border-top:8px solid var(--mc,var(--blue));scroll-margin-top:20px;}
+  .mod-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;}
+  .mod-n{width:42px;height:42px;border-radius:50%;background:var(--mc);color:#fff;font-family:'Baloo 2';
+    font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    box-shadow:3px 3px 0 var(--shadow);}
+  .mod-head h3{font-size:20px;color:var(--mc);line-height:1.3;}
+  .mod-sub{font-size:13.5px;color:#8a7a70;margin-top:2px;}
+  .mod-teach{margin-bottom:16px;font-size:15px;}
+  .tri{display:grid;gap:8px;margin:10px 0;}
+  .tri-item{background:#faf6ee;border-radius:12px;padding:10px 14px;font-size:14.5px;line-height:1.8;}
+  .tri-item b{display:block;color:var(--mc);}
+  .tri-item u{text-decoration-color:var(--red);text-underline-offset:3px;}
+  .tri-item small{display:block;color:#8a7a70;font-size:12.5px;line-height:1.6;margin-top:2px;}
+  .myth{background:#fff2f2;border:2px solid #ffd0d0;border-left:6px solid var(--red);
+    border-radius:12px;padding:12px 14px;margin-top:10px;font-size:14px;line-height:1.85;}
+  .myth b{color:#d9436c;display:block;margin-bottom:4px;}
+  .myth u{text-decoration-color:var(--red);text-underline-offset:3px;font-weight:700;}
+  .tip-line{background:#fff8e6;border-radius:10px;padding:8px 12px;font-size:13.5px;margin-top:8px;}
+
+  /* 練習區 */
+  .mod-prac{background:#f6fbfa;border:2px dashed #cfe8e4;border-radius:18px;padding:16px 16px 18px;}
+  .prac-tag{display:inline-block;background:var(--mc);color:#fff;font-weight:700;font-size:13px;
+    padding:3px 12px;border-radius:20px;margin-bottom:10px;}
+  .prac-q,.prac-q2{font-size:14.5px;margin-bottom:10px;}
+  .prac-q2{background:#fff;border-radius:12px;padding:12px 14px;border:2px solid #eee;line-height:1.9;}
+  .prac-fb{margin-top:10px;font-size:14px;font-weight:700;min-height:20px;line-height:1.7;}
+
+  /* 分塊練習 */
+  .chunkbox,.trapbox{background:#fff;border-radius:12px;padding:14px;font-size:15.5px;line-height:2.6;
+    border:2px solid #eee;margin-bottom:10px;}
+  .cg{display:inline-block;width:16px;height:16px;border-radius:50%;border:2px dashed #cbb9a6;
+    vertical-align:middle;margin:0 2px;cursor:pointer;transition:.12s;}
+  .cg:hover{border-color:var(--blue);background:#eaf1fb;transform:scale(1.25);}
+  .cg.on{background:var(--blue);border-color:var(--blue);border-style:solid;}
+  .cg.good{background:var(--mint);border-color:var(--mint);border-style:solid;}
+  /* 陷阱字 */
+  .tw{cursor:pointer;padding:1px 3px;border-radius:5px;transition:.15s;border-bottom:2px dotted #ccc;}
+  .tw:hover{background:#fff2c9;}
+  .tw.on{background:#ffe98a;border-bottom-color:transparent;}
+  .tw.hit{background:var(--red);color:#fff;border-bottom-color:transparent;font-weight:700;}
+  .tw.miss{background:var(--highlight);border-bottom:2px solid #e6b800;font-weight:700;}
+
+  /* 選項按鈕 */
+  .mopts{display:flex;gap:8px;flex-wrap:wrap;}
+  .mopts.vert{flex-direction:column;}
+  .mopt{background:#fff;border:2px solid #e6d6e2;border-radius:14px;padding:11px 14px;
+    font-family:'Noto Sans TC';font-size:14.5px;cursor:pointer;transition:.15s;text-align:left;
+    color:var(--ink);line-height:1.7;flex:1;min-width:120px;}
+  .mopt:hover{transform:translateY(-2px);border-color:var(--mc);}
+  .mopt.ok{background:var(--mint);border-color:var(--mint);color:#fff;}
+  .mopt.no{background:#ffd6d6;border-color:#ff9a9a;}
+  .mopt u{text-decoration-color:var(--grape);text-underline-offset:3px;}
+
+  /* 滿分公式 */
+  .formula{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin:12px 0;}
+  .f-part{padding:7px 14px;border-radius:20px;font-weight:800;font-size:14px;color:#fff;}
+  .f1{background:var(--blue);} .f2{background:var(--mint);} .f3{background:var(--peach);color:#7a4a2a;}
+  .f-plus{font-weight:800;color:#b0a298;}
+  .grade-demo{display:grid;gap:8px;margin-top:10px;}
+  .gd{border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.8;border-left:6px solid #ccc;}
+  .gd b{display:inline-block;margin-right:8px;}
+  .gd small{display:block;color:#7a6f68;font-size:12.5px;margin-top:2px;}
+  .gd0{background:#fff2f2;border-left-color:#ff9a9a;} .gd0 b{color:#e06b6b;}
+  .gd1{background:#fff8e6;border-left-color:#ffc94d;} .gd1 b{color:#d99b00;}
+  .gd2{background:#eefaf8;border-left-color:var(--mint);} .gd2 b{color:#2fa89a;}
+  .gd u{text-decoration-color:var(--mint);text-underline-offset:3px;font-weight:700;}
+
+  /* 三輪 */
+  .rounds{display:grid;gap:8px;margin:10px 0;}
+  .rd{border-radius:12px;padding:10px 14px;font-size:14.5px;line-height:1.8;border-left:6px solid;}
+  .rd b{display:block;}
+  .rd1{background:#eaf1fb;border-left-color:var(--blue);} .rd1 b{color:var(--blue);}
+  .rd2{background:#f5eeff;border-left-color:var(--grape);} .rd2 b{color:#7a5bbf;}
+  .rd3{background:#eefaf8;border-left-color:var(--mint);} .rd3 b{color:#2fa89a;}
+  .rd u{text-decoration-color:var(--red);text-underline-offset:3px;font-weight:700;}
+
+  .swatch2{width:28px;height:28px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px #ddd;cursor:pointer;}
+  .swatch2.sel{box-shadow:0 0 0 3px var(--ink);}
+
 </style>
 </head>
 <body>
@@ -207,81 +306,112 @@
   </div>
 </section>
 
+<!-- ========== 五大應考策略課程 ========== -->
 <section>
-  <h2 class="section-title">四步<span class="u">解題魔法</span></h2>
-  <p class="section-lead">跟著練習,你也會變高手!</p>
+  <h2 class="section-title">高手的<span class="u">五大應考策略</span></h2>
+  <p class="section-lead">這是一整套「考試作業系統」🧠<br>一個模組一個模組學,每學完馬上練習!</p>
 
-  <div class="steps">
-    <div class="step" style="--c:var(--blue)">
-      <div class="n">1</div>
-      <h3>✂️ 微斷句:遇到三種訊號就點一下</h3>
-      <p>句子超過 30 個字,手指跟著眼睛讀,遇到這三種地方就輕輕點一點:</p>
-      <div class="ex">
-        ① 時間、地點 → 2025年10月<span class="mk">、</span> 在台灣東部<span class="mk">、</span><br>
-        ② 前提、條件 → 在解禁前<span class="mk">、</span> 限用25字<span class="mk">、</span><br>
-        ③ 轉折、提問 → 然而<span class="mk">、</span> 請問下列何者<span class="mk">、</span>
+  <!-- 總覽圖 -->
+  <div class="os-map">
+    <div class="os-item" data-go="m1"><span class="os-n">1</span><div><b>閱讀監控</b><small>大腦儀表板</small></div></div>
+    <div class="os-arrow">↓</div>
+    <div class="os-item" data-go="m2"><span class="os-n">2</span><div><b>視覺轉譯</b><small>把文字變圖</small></div></div>
+    <div class="os-arrow">↓</div>
+    <div class="os-item" data-go="m3"><span class="os-n">3</span><div><b>精準審題</b><small>抓陷阱條件</small></div></div>
+    <div class="os-arrow">↓</div>
+    <div class="os-item" data-go="m4"><span class="os-n">4</span><div><b>閱卷對齊</b><small>非選踩分點</small></div></div>
+    <div class="os-arrow">↓</div>
+    <div class="os-item" data-go="m5"><span class="os-n">5</span><div><b>時間配速</b><small>三輪作答法</small></div></div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="mProg"></div></div>
+  <p class="prog-txt" id="mProgTxt">已完成 0 / 5 個模組</p>
+
+  <!-- ===== 模組 1 ===== -->
+  <div class="mod" id="m1" style="--mc:var(--blue)">
+    <div class="mod-head"><span class="mod-n">1</span><div><h3>閱讀監控 · 大腦儀表板</h3>
+      <p class="mod-sub">解決:讀完就忘、眼睛飄過去卻沒讀進去</p></div></div>
+
+    <div class="mod-teach">
+      <p>讀題的時候,腦袋裡要有<b>第三隻眼睛</b>在監督自己:「我真的看懂了嗎?」三個動作:</p>
+      <div class="tri">
+        <div class="tri-item"><b>✂️ 微斷句</b>長句子在轉折處打逗點,一塊一塊吸收</div>
+        <div class="tri-item"><b>🚨 卡頓警報</b>發現「咦?我剛剛讀了什麼」→ 立刻停,回句首重讀一次。<br>
+          <small>❗ 讀不懂卻硬往下讀,是最浪費時間的事</small></div>
+        <div class="tri-item"><b>🗣️ 自問一句</b>讀完題幹先問自己:「這題到底在問什麼?」<br>
+          <small>講得出來才算真的讀懂,講不出來就再讀一次</small></div>
       </div>
-      <span class="kou">口訣:手跟眼走,停頓就點!一小塊一小塊讀 🐛</span>
+      <div class="myth">
+        <b>⚠️ 注意:不要「逐字指著唸」</b>
+        用手指或筆尖一個字一個字爬著讀,會把速度<u>鎖死</u>,大腦也來不及整句理解——考試時反而更慢、更容易讀不懂。<br>
+        高手的筆在動,是為了<b>做記號</b>(斷句、圈關鍵字),不是為了帶著眼睛走喔!
+      </div>
     </div>
 
-    <div class="step" style="--c:var(--mint)">
-      <div class="n">2</div>
-      <h3>🎨 畫圖:把文字變成小圖案</h3>
-      <p>大腦看圖比看字輕鬆!下面是三種<b>真的畫出來長這樣</b>的小草圖,照著畫就會了 👇</p>
+    <div class="mod-prac">
+      <div class="prac-tag">🎯 練習 A:幫長句子分塊</div>
+      <p class="prac-q">下面這個長句子,分成幾塊讀最容易懂?點出你覺得該停頓的地方(建議 2 個)</p>
+      <div class="chunkbox" id="c1"></div>
+      <button class="mini-btn" onclick="checkC1()">看看答案 ✨</button>
+      <div class="prac-fb" id="c1fb"></div>
 
+      <div class="prac-tag" style="margin-top:18px;">🎯 練習 B:讀完問自己「在問什麼?」</div>
+      <p class="prac-q2">「某地全年高溫多雨,森林茂密、樹種繁多,形成茂密的熱帶雨林。這種氣候最可能分布於下列何處?」</p>
+      <p class="prac-q">讀完這段,這題到底在問什麼?</p>
+      <div class="mopts vert" id="m1bopts">
+        <button class="mopt" data-ok="0">問熱帶雨林裡有哪些動物</button>
+        <button class="mopt" data-ok="1">問這種氣候<u>出現在什麼地方</u></button>
+        <button class="mopt" data-ok="0">問為什麼森林很茂密</button>
+      </div>
+      <div class="prac-fb" id="m1bfb"></div>
+    </div>
+  </div>
+
+  <!-- ===== 模組 2 ===== -->
+  <div class="mod" id="m2" style="--mc:var(--mint)">
+    <div class="mod-head"><span class="mod-n">2</span><div><h3>視覺轉譯 · 把文字變成圖</h3>
+      <p class="mod-sub">解決:題目太抽象、腦袋繞不出來</p></div></div>
+
+    <div class="mod-teach">
+      <p>大腦處理<b>圖</b>比處理<b>字</b>輕鬆很多!看到這三種題目就動手畫:</p>
       <div class="draw-examples">
-
         <div class="dex">
-          <div class="dex-label">🧭 方位、風向題</div>
+          <div class="dex-label">🧭 方位、風向</div>
           <svg viewBox="0 0 150 130" class="dex-svg" xmlns="http://www.w3.org/2000/svg">
-            <!-- 十字 -->
             <line x1="75" y1="22" x2="75" y2="108" stroke="#4a7fd4" stroke-width="3" stroke-linecap="round"/>
             <line x1="32" y1="65" x2="118" y2="65" stroke="#4a7fd4" stroke-width="3" stroke-linecap="round"/>
-            <!-- 箭頭(北) -->
             <path d="M75 22 L70 30 L80 30 Z" fill="#4a7fd4"/>
-            <!-- 方位字 -->
             <text x="75" y="16" class="dtxt" text-anchor="middle">北</text>
             <text x="75" y="124" class="dtxt" text-anchor="middle">南</text>
             <text x="20" y="70" class="dtxt" text-anchor="middle">西</text>
             <text x="130" y="70" class="dtxt" text-anchor="middle">東</text>
-            <!-- 風向箭頭:西北→東南 -->
             <line x1="52" y1="42" x2="98" y2="88" stroke="#e8547c" stroke-width="3" stroke-linecap="round"/>
             <path d="M98 88 L88 84 L92 78 Z" fill="#e8547c"/>
             <text x="45" y="40" class="dsub" text-anchor="middle">風</text>
           </svg>
-          <div class="dex-cap">先畫十字標上<b>北南東西</b>,再畫箭頭表示風往哪吹(圖中:西北風→往東南)</div>
+          <div class="dex-cap">畫十字標<b>北南東西</b>,箭頭表示風往哪吹</div>
         </div>
-
         <div class="dex">
-          <div class="dex-label">📈 供需、價格題</div>
+          <div class="dex-label">📈 供需、價格</div>
           <svg viewBox="0 0 150 130" class="dex-svg" xmlns="http://www.w3.org/2000/svg">
-            <!-- 軸 -->
             <line x1="28" y1="18" x2="28" y2="105" stroke="#3a3230" stroke-width="2.5"/>
             <line x1="28" y1="105" x2="128" y2="105" stroke="#3a3230" stroke-width="2.5"/>
             <text x="20" y="16" class="dsub" text-anchor="middle">價</text>
             <text x="128" y="120" class="dsub" text-anchor="middle">量</text>
-            <!-- 需求線 D -->
             <line x1="38" y1="30" x2="115" y2="98" stroke="#4a7fd4" stroke-width="2.5" stroke-linecap="round"/>
             <text x="120" y="100" class="dsub" fill="#4a7fd4">D</text>
-            <!-- 供給線 S1 -->
             <line x1="38" y1="98" x2="115" y2="30" stroke="#4bc0b8" stroke-width="2.5" stroke-linecap="round"/>
             <text x="120" y="30" class="dsub" fill="#2fa89a">S₁</text>
-            <!-- 供給移動 S2(往右) -->
             <line x1="60" y1="98" x2="128" y2="42" stroke="#e8547c" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="5 4"/>
             <text x="132" y="46" class="dsub" fill="#e8547c">S₂</text>
-            <!-- 移動箭頭 -->
             <path d="M70 60 L86 66 M86 66 L80 62 M86 66 L81 70" stroke="#e8547c" stroke-width="2" fill="none" stroke-linecap="round"/>
           </svg>
-          <div class="dex-cap">畫<b>價格-數量</b>兩條軸,供給往右移(S₁→S₂)就用箭頭標出來,一眼看出價格會怎麼變</div>
+          <div class="dex-cap">畫<b>價-量</b>兩軸,供給右移 S₁→S₂ 用箭頭標出</div>
         </div>
-
         <div class="dex">
           <div class="dex-label">📅 好多年代</div>
           <svg viewBox="0 0 150 130" class="dex-svg" xmlns="http://www.w3.org/2000/svg">
-            <!-- 時間線 -->
             <line x1="18" y1="65" x2="132" y2="65" stroke="#3a3230" stroke-width="2.5" stroke-linecap="round"/>
             <path d="M132 65 L124 61 L124 69 Z" fill="#3a3230"/>
-            <!-- 節點 -->
             <circle cx="35" cy="65" r="5" fill="#4a7fd4"/>
             <circle cx="75" cy="65" r="5" fill="#a582d6"/>
             <circle cx="115" cy="65" r="5" fill="#e8547c"/>
@@ -292,115 +422,111 @@
             <text x="75" y="85" class="dtiny" text-anchor="middle">解嚴</text>
             <text x="115" y="85" class="dtiny" text-anchor="middle">政黨輪替</text>
           </svg>
-          <div class="dex-cap">遇到一堆年代,畫一條線<b>從早到晚排開</b>,排序題就不會亂</div>
+          <div class="dex-cap">年代多就拉一條線<b>從早排到晚</b></div>
         </div>
-
       </div>
-      <span class="kou">口訣:不用畫漂亮,自己看得懂就好!🖍️</span>
     </div>
 
-    <div class="step" style="--c:var(--peach)">
-      <div class="n">3</div>
-      <h3>🔑 圈關鍵字:題目在問什麼?</h3>
-      <p>用紅筆把題目「要求」和「重點詞」圈出來,才不會答錯方向:</p>
-      <div class="ex">
-        請問下列何者 <span class="rd">錯誤</span>?(小心!是要找錯的)<br>
-        請 <span class="rd">限用 25 字</span> 說明(不能寫太多)<br>
-        該因子最 <span class="rd">可能</span> 為何?
+    <div class="mod-prac">
+      <div class="prac-tag">🎯 練習:這題該畫哪種圖?</div>
+      <div class="prac-q2">題目:「某國因技術進步,稻米<b>供給大增</b>,請問市場價格會如何變化?」</div>
+      <div class="mopts" id="m2opts">
+        <button class="mopt" data-ok="0">🧭 方位十字</button>
+        <button class="mopt" data-ok="1">📈 供需 X-Y 圖</button>
+        <button class="mopt" data-ok="0">📅 時間軸</button>
       </div>
-      <span class="kou">口訣:先看清楚題目要什麼,再動筆!🔍</span>
-    </div>
-
-    <div class="step" style="--c:var(--red)">
-      <div class="n">4</div>
-      <h3>📖 訂正:寫出「為什麼錯」</h3>
-      <p>訂正不是只寫正確答案,要寫出<b>當時哪裡想錯了</b>:</p>
-      <div class="ex">
-        ❌ 沒效果:答 (B)<br>
-        ⭕ 有效果:選 A 是因為<span class="rd">漏看了「解禁前」</span>,正確是 (B)<br>
-        ⭕ 有效果:這條河<span class="rd">向東流</span>,所以選 (C)
-      </div>
-      <span class="kou">口訣:找出錯的原因,下次就不會再錯!💪</span>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">換你<span class="u">試試看</span>!</h2>
-  <p class="section-lead">四個小關卡,每一關練一種魔法 🌟</p>
-
-  <div class="pcard">
-    <span class="tag civ">關卡 1 · 微斷句</span>
-    <h3>幫這個長句子點上斷句小逗點</h3>
-    <p style="font-size:14.5px;color:#8a7a70;">點一點字中間的小圈圈,在「該停頓的地方」放記號。找出最好的 2 個位置!</p>
-    <div class="stem">
-      <div class="chunk-line" id="chunkLine"></div>
-    </div>
-    <button class="btn" onclick="checkChunk()">檢查看看 ✨</button>
-    <div class="fb" id="chunkFb"></div>
-  </div>
-
-  <div class="pcard">
-    <span class="tag civ">關卡 2 · 圈關鍵字</span>
-    <h3>這一題到底要問什麼?</h3>
-    <div class="stem">
-      根據圖表,請問下列何者<b>最不可能</b>是造成豬肉價格上漲的原因?
-    </div>
-    <p style="font-size:15px;">題目裡最重要、最容易看錯的關鍵詞是哪一個?</p>
-    <div class="opts" id="kwOpts">
-      <div class="opt" data-ok="0">圖表</div>
-      <div class="opt" data-ok="0">豬肉價格</div>
-      <div class="opt" data-ok="1">最不可能</div>
-      <div class="opt" data-ok="0">原因</div>
-    </div>
-    <div class="fb" id="kwFb"></div>
-  </div>
-
-  <div class="pcard">
-    <span class="tag geo">關卡 3 · 畫圖魔法</span>
-    <h3>用手指畫出方向十字!</h3>
-    <p style="font-size:15px;">題目說:「風<b>從西北方</b>吹來。」<br>請在白板上先描出十字,再畫一個箭頭指向<b>右下方(東南)</b>,代表風吹的方向。</p>
-    <div class="draw-wrap">
-      <canvas id="pad" width="320" height="220"></canvas>
-      <div class="draw-tools">
-        <div class="swatch sel" style="background:#4a7fd4" data-col="#4a7fd4"></div>
-        <div class="swatch" style="background:#e8547c" data-col="#e8547c"></div>
-        <div class="swatch" style="background:#4bc0b8" data-col="#4bc0b8"></div>
-        <button class="btn" style="margin-top:0;padding:6px 16px" onclick="clearPad()">🧽 擦掉重畫</button>
-        <button class="btn" id="showAnsBtn" style="margin-top:0;padding:6px 16px;background:var(--peach);color:#7a4a2a">👀 看範例</button>
-      </div>
-      <p style="font-size:13px;color:#8a7a70;margin-top:8px;">💡 提示:十字幫我們分清楚上北、下南、左西、右東</p>
-
-      <div id="ansExample" style="display:none;margin-top:10px;">
-        <p style="font-size:13px;color:#2fa89a;font-weight:700;margin-bottom:6px;">範例答案長這樣 ⬇️(照著畫看看)</p>
-        <svg viewBox="0 0 200 150" style="width:200px;background:#fff;border:2px dashed #cbe6e2;border-radius:12px;" xmlns="http://www.w3.org/2000/svg">
-          <line x1="100" y1="28" x2="100" y2="122" stroke="#4a7fd4" stroke-width="3" stroke-linecap="round"/>
-          <line x1="42" y1="75" x2="158" y2="75" stroke="#4a7fd4" stroke-width="3" stroke-linecap="round"/>
-          <path d="M100 28 L94 37 L106 37 Z" fill="#4a7fd4"/>
-          <text x="100" y="20" text-anchor="middle" font-size="14" font-weight="800" fill="#4a7fd4" font-family="Noto Sans TC">北</text>
-          <text x="100" y="140" text-anchor="middle" font-size="14" font-weight="800" fill="#4a7fd4" font-family="Noto Sans TC">南</text>
-          <text x="28" y="80" text-anchor="middle" font-size="14" font-weight="800" fill="#4a7fd4" font-family="Noto Sans TC">西</text>
-          <text x="172" y="80" text-anchor="middle" font-size="14" font-weight="800" fill="#4a7fd4" font-family="Noto Sans TC">東</text>
-          <line x1="66" y1="48" x2="134" y2="102" stroke="#e8547c" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M134 102 L121 98 L126 90 Z" fill="#e8547c"/>
-          <text x="58" y="46" text-anchor="middle" font-size="12" font-weight="700" fill="#e8547c" font-family="Noto Sans TC">風</text>
-        </svg>
+      <div class="prac-fb" id="m2fb"></div>
+      <div class="draw-wrap" style="margin-top:14px;">
+        <p style="font-size:13.5px;color:#8a7a70;">✏️ 動手畫畫看(可以照著上面的範例):</p>
+        <canvas id="pad2" width="300" height="200"></canvas>
+        <div class="draw-tools">
+          <div class="swatch2 sel" style="background:#4a7fd4" data-col="#4a7fd4"></div>
+          <div class="swatch2" style="background:#e8547c" data-col="#e8547c"></div>
+          <button class="mini-btn" onclick="clearPad2()">🧽 擦掉</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="pcard">
-    <span class="tag his">關卡 4 · 聰明訂正</span>
-    <h3>哪一種訂正方式最棒?</h3>
-    <div class="stem">
-      小明這題選錯了。正確答案是 (C)。<br>下面哪一種訂正,能幫他下次不再錯?
+  <!-- ===== 模組 3 ===== -->
+  <div class="mod" id="m3" style="--mc:var(--peach)">
+    <div class="mod-head"><span class="mod-n">3</span><div><h3>精準審題 · 抓住題目的底線</h3>
+      <p class="mod-sub">解決:看錯題目、答非所問、漏看限制</p></div></div>
+
+    <div class="mod-teach">
+      <p>考試最可惜的失分,是<b>會寫但看錯題目</b>!一定要圈出這兩種詞:</p>
+      <div class="tri">
+        <div class="tri-item"><b>🔴 否定 / 極端詞</b>何者<u>非</u>、<u>不</u>正確、<u>最</u>可能、<u>主要</u>原因</div>
+        <div class="tri-item"><b>📏 作答限制</b>限 25 字內、請摘錄原文、用自己的話說明</div>
+      </div>
+      <p class="tip-line">💡 這些詞一圈起來,答案方向就不會跑掉!</p>
     </div>
-    <div class="opts" id="fixOpts" style="grid-template-columns:1fr;">
-      <div class="opt" data-ok="0">在旁邊寫一個大大的「答:C」</div>
-      <div class="opt" data-ok="1">寫下:我漏看了「向東流」,所以應該選 C</div>
-      <div class="opt" data-ok="0">把錯的答案用立可白塗掉</div>
+
+    <div class="mod-prac">
+      <div class="prac-tag">🎯 練習:把陷阱字圈出來</div>
+      <p class="prac-q">點出這題裡<b>最容易害你答錯</b>的字(可點多個)</p>
+      <div class="trapbox" id="t1"></div>
+      <button class="mini-btn" onclick="checkT1()">對答案 🔍</button>
+      <div class="prac-fb" id="t1fb"></div>
     </div>
-    <div class="fb" id="fixFb"></div>
+  </div>
+
+  <!-- ===== 模組 4 ===== -->
+  <div class="mod" id="m4" style="--mc:var(--grape)">
+    <div class="mod-head"><span class="mod-n">4</span><div><h3>閱卷對齊 · 非選題拿滿分</h3>
+      <p class="mod-sub">解決:寫了一大堆,分數卻很低</p></div></div>
+
+    <div class="mod-teach">
+      <p>閱卷老師是<b>「找關鍵字給分」</b>的!答案要讓他幾秒內就看到給分點。滿分公式:</p>
+      <div class="formula">
+        <span class="f-part f1">專有名詞</span><span class="f-plus">+</span>
+        <span class="f-part f2">因果邏輯</span><span class="f-plus">+</span>
+        <span class="f-part f3">原文佐證</span>
+      </div>
+      <div class="grade-demo">
+        <div class="gd gd0"><b>0 分</b>「因為地形的關係。」<small>→ 沒有專有名詞,太空泛</small></div>
+        <div class="gd gd1"><b>1 分</b>「因為中央山脈很高。」<small>→ 有名詞,但沒說出因果</small></div>
+        <div class="gd gd2"><b>2 分 滿分</b>「因為<u>中央山脈</u>逼近東岸,<u>所以</u>坡陡缺乏平原,如題目所述多岩岸。」<small>→ 名詞+因果+佐證,三個都有!</small></div>
+      </div>
+    </div>
+
+    <div class="mod-prac">
+      <div class="prac-tag">🎯 練習:哪個答案拿滿分?</div>
+      <p class="prac-q2">題目:「請說明台灣西南沿海為何容易地層下陷?」</p>
+      <div class="mopts vert" id="m4opts">
+        <button class="mopt" data-ok="0">因為那邊的人抽水抽太多了。</button>
+        <button class="mopt" data-ok="1">因為長期<u>超抽地下水</u>,<u>導致</u>地層下陷、海水倒灌。</button>
+        <button class="mopt" data-ok="0">因為西南部靠海,所以會下陷。</button>
+      </div>
+      <div class="prac-fb" id="m4fb"></div>
+    </div>
+  </div>
+
+  <!-- ===== 模組 5 ===== -->
+  <div class="mod" id="m5" style="--mc:var(--red)">
+    <div class="mod-head"><span class="mod-n">5</span><div><h3>時間配速 · 三輪作答法</h3>
+      <p class="mod-sub">解決:寫不完、卡在難題浪費時間</p></div></div>
+
+    <div class="mod-teach">
+      <p>不要從第一題慢慢磨到最後!用<b>三輪</b>掃過整張考卷:</p>
+      <div class="rounds">
+        <div class="rd rd1"><b>第 1 輪 · 順打保底</b>一眼會寫的先拿下。<u>卡超過 1 分鐘就打星號跳過!</u></div>
+        <div class="rd rd2"><b>第 2 輪 · 攻堅難題</b>回頭處理星號題,用斷句和畫圖慢慢拆解</div>
+        <div class="rd rd3"><b>第 3 輪 · 精準檢查</b>檢查劃卡、塗改處、非選題的字數限制</div>
+      </div>
+      <p class="tip-line">💡 為什麼要跳題?因為後面可能有<b>更簡單</b>的題目在等你!</p>
+    </div>
+
+    <div class="mod-prac">
+      <div class="prac-tag">🎯 練習:考場情境判斷</div>
+      <p class="prac-q2">第 8 題你想了 <b>1 分半</b> 還是不會,後面還有 20 題沒寫。你該怎麼做?</p>
+      <div class="mopts vert" id="m5opts">
+        <button class="mopt" data-ok="0">繼續想,想到會為止</button>
+        <button class="mopt" data-ok="1">打星號跳過,先寫後面的題目,第二輪再回來</button>
+        <button class="mopt" data-ok="0">隨便猜一個就好,不再回來看</button>
+      </div>
+      <div class="prac-fb" id="m5fb"></div>
+    </div>
   </div>
 
 </section>
@@ -944,85 +1070,147 @@ renderBank();
 </footer>
 
 <script>
-/* 練習1:互動斷句 */
-const parts = ["2025年10月","在台灣東部地區","發生了非洲豬瘟","造成豬價上漲","然而","在解禁之後","價格反而更高"];
-const bestGaps = [0,3];
-const lineEl = document.getElementById('chunkLine');
-let h='';
-parts.forEach((p,i)=>{ h+='<span>'+p+'</span>';
-  if(i<parts.length-1){ h+='<span class="gap" data-i="'+i+'"></span>'; } });
-lineEl.innerHTML=h;
-document.querySelectorAll('#chunkLine .gap').forEach(g=>g.addEventListener('click',()=>g.classList.toggle('picked')));
-function checkChunk(){
-  const picked=[...document.querySelectorAll('#chunkLine .gap.picked')].map(g=>+g.dataset.i);
-  const fb=document.getElementById('chunkFb');
-  let hit=bestGaps.filter(b=>picked.includes(b)).length;
-  document.querySelectorAll('#chunkLine .gap').forEach(g=>{
-    if(bestGaps.includes(+g.dataset.i)){g.classList.add('good');g.classList.remove('picked');}});
-  if(hit===2){ fb.textContent='🎉 太厲害了!你找到最棒的兩個斷句點!'; fb.style.color='#3fb8a8'; done('chunk'); }
-  else if(hit===1){ fb.textContent='👍 不錯喔!綠色勾勾是最好的位置,再看看~'; fb.style.color='#e8547c'; done('chunk'); }
-  else { fb.textContent='💡 綠色勾勾的地方最適合斷句喔!時間背景後、「然而」前面停一下最好。'; fb.style.color='#e8547c'; }
+/* ===== 五大策略模組互動 ===== */
+const modDone = new Set();
+function markMod(id){
+  if(modDone.has(id)) return;
+  modDone.add(id);
+  const pct = modDone.size/5*100;
+  document.getElementById('mProg').style.width = pct+'%';
+  document.getElementById('mProgTxt').textContent =
+    modDone.size>=5 ? '🎊 五個模組全部完成!你已經學會整套應考策略了!' : `已完成 ${modDone.size} / 5 個模組`;
+  if(modDone.size>=5){
+    const z=document.getElementById('medalZone');
+    if(z && !z.dataset.shown){ z.dataset.shown='1';
+      z.innerHTML='<div class="medal">🏅</div><div style="font-weight:800;color:#e8547c;font-size:20px;">五大策略全部學會!你就是小考神!</div>'; }
+  }
 }
-/* 選擇題 */
-function wireOpts(id,fbId,okMsg,noMsg,key){
-  document.querySelectorAll('#'+id+' .opt').forEach(o=>{
+
+/* 總覽圖點擊 → 捲到該模組 */
+document.querySelectorAll('.os-item').forEach(it=>{
+  it.addEventListener('click',()=>{
+    const el=document.getElementById(it.dataset.go);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+/* --- 模組1:分塊練習 --- */
+const C1_PARTS = ["2025年10月","某養豬場的豬隻陸續病死","確認為非洲豬瘟後","全國禁運令於11月6日結束","請問這對豬肉價格有何影響?"];
+const C1_BEST = [1,3];   // 最佳斷點:事件講完之後、提問之前
+(function(){
+  const box=document.getElementById('c1');
+  let h='';
+  C1_PARTS.forEach((p,i)=>{
+    h+='<span>'+p+'</span>';
+    if(i<C1_PARTS.length-1) h+='<span class="cg" data-i="'+i+'"></span>';
+  });
+  box.innerHTML=h;
+  box.querySelectorAll('.cg').forEach(g=>g.addEventListener('click',()=>g.classList.toggle('on')));
+})();
+function checkC1(){
+  const box=document.getElementById('c1');
+  const picked=[...box.querySelectorAll('.cg.on')].map(g=>+g.dataset.i);
+  const hit=C1_BEST.filter(b=>picked.includes(b)).length;
+  box.querySelectorAll('.cg').forEach(g=>{ if(C1_BEST.includes(+g.dataset.i)){g.classList.add('good');g.classList.remove('on');} });
+  const fb=document.getElementById('c1fb');
+  if(hit===2){ fb.textContent='🎉 完美!綠色就是最好的兩個停頓點:「事件講完」和「問題開始」之前。'; fb.style.color='#3fb8a8'; }
+  else if(hit===1){ fb.textContent='👍 有抓到一個!綠色是最佳位置,再對照看看。'; fb.style.color='#e8843e'; }
+  else { fb.textContent='💡 綠色的地方最適合停頓:「事件講完」之後、「問題開始」之前。'; fb.style.color='#e8547c'; }
+  markMod('m1');
+}
+
+/* --- 模組2:選圖 + 畫板 --- */
+document.querySelectorAll('#m2opts .mopt').forEach(o=>{
+  o.addEventListener('click',()=>{
+    document.querySelectorAll('#m2opts .mopt').forEach(x=>x.style.pointerEvents='none');
+    const fb=document.getElementById('m2fb');
+    if(o.dataset.ok==='1'){ o.classList.add('ok');
+      fb.innerHTML='🎯 對!「供給大增」就是供給線往右移(S₁→S₂),畫出來馬上看出<b>價格會下降</b>。'; fb.style.color='#3fb8a8'; }
+    else{ o.classList.add('no');
+      document.querySelector('#m2opts .mopt[data-ok="1"]').classList.add('ok');
+      fb.innerHTML='再想想~看到「供給、價格」就要畫 <b>X-Y 供需圖</b>喔!'; fb.style.color='#e8547c'; }
+    markMod('m2');
+  });
+});
+/* 畫板2 */
+(function(){
+  const pad=document.getElementById('pad2'); if(!pad) return;
+  const ctx=pad.getContext('2d');
+  ctx.lineWidth=3; ctx.lineCap='round'; ctx.strokeStyle='#4a7fd4';
+  let drawing=false, col='#4a7fd4';
+  function gd(){ ctx.save(); ctx.strokeStyle='#eee'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(40,20); ctx.lineTo(40,170); ctx.moveTo(40,170); ctx.lineTo(270,170); ctx.stroke();
+    ctx.fillStyle='#ccc'; ctx.font='12px sans-serif'; ctx.fillText('價',22,18); ctx.fillText('量',272,178);
+    ctx.restore(); ctx.strokeStyle=col; ctx.lineWidth=3; }
+  gd();
+  function pos(e){const r=pad.getBoundingClientRect();const t=e.touches?e.touches[0]:e;
+    return {x:(t.clientX-r.left)*(pad.width/r.width),y:(t.clientY-r.top)*(pad.height/r.height)};}
+  function st(e){drawing=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault();}
+  function mv(e){if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault();}
+  function en(){drawing=false;}
+  pad.addEventListener('mousedown',st); pad.addEventListener('mousemove',mv);
+  window.addEventListener('mouseup',en);
+  pad.addEventListener('touchstart',st,{passive:false}); pad.addEventListener('touchmove',mv,{passive:false});
+  pad.addEventListener('touchend',en);
+  document.querySelectorAll('.swatch2').forEach(s=>{
+    s.addEventListener('click',()=>{document.querySelectorAll('.swatch2').forEach(x=>x.classList.remove('sel'));
+      s.classList.add('sel'); col=s.dataset.col; ctx.strokeStyle=col;});
+  });
+  window.clearPad2=function(){ctx.clearRect(0,0,pad.width,pad.height);gd();};
+})();
+
+/* --- 模組3:圈陷阱字 --- */
+// 句子拆成詞,標記哪些是「陷阱字」
+const T1_WORDS = [
+  {t:"根據上文,",trap:false},{t:"下列何者",trap:false},{t:"最不可能",trap:true},
+  {t:"是造成地層下陷的",trap:false},{t:"主要",trap:true},{t:"原因?",trap:false},
+  {t:"(限用",trap:false},{t:"25字以內",trap:true},{t:"作答)",trap:false}
+];
+(function(){
+  const box=document.getElementById('t1');
+  box.innerHTML = T1_WORDS.map((w,i)=>`<span class="tw" data-i="${i}">${w.t}</span>`).join('');
+  box.querySelectorAll('.tw').forEach(w=>w.addEventListener('click',()=>w.classList.toggle('on')));
+})();
+function checkT1(){
+  const box=document.getElementById('t1');
+  let hit=0, wrong=0;
+  box.querySelectorAll('.tw').forEach(w=>{
+    const i=+w.dataset.i, isTrap=T1_WORDS[i].trap, picked=w.classList.contains('on');
+    w.classList.remove('on');
+    if(isTrap && picked){ w.classList.add('hit'); hit++; }
+    else if(isTrap){ w.classList.add('miss'); }
+    else if(picked){ wrong++; }
+  });
+  const fb=document.getElementById('t1fb');
+  const total=T1_WORDS.filter(w=>w.trap).length;
+  if(hit===total && wrong===0){ fb.innerHTML='🎉 全中!「<b>最不可能</b>」「<b>主要</b>」是極端詞,「<b>25字以內</b>」是作答限制,三個都要圈!'; fb.style.color='#3fb8a8'; }
+  else{ fb.innerHTML=`你圈中 ${hit}/${total} 個。紅色是你圈對的,黃色是漏掉的——<b>否定/極端詞</b>和<b>字數限制</b>都是陷阱!`; fb.style.color='#e8843e'; }
+  markMod('m3');
+}
+
+/* --- 模組4 & 5:選擇題 --- */
+function wireMod(id,fbId,ok,no,mid){
+  document.querySelectorAll('#'+id+' .mopt').forEach(o=>{
     o.addEventListener('click',()=>{
-      document.querySelectorAll('#'+id+' .opt').forEach(x=>x.style.pointerEvents='none');
+      document.querySelectorAll('#'+id+' .mopt').forEach(x=>x.style.pointerEvents='none');
       const fb=document.getElementById(fbId);
-      if(o.dataset.ok==='1'){ o.classList.add('correct'); fb.textContent=okMsg; fb.style.color='#3fb8a8'; }
-      else{ o.classList.add('wrong'); document.querySelector('#'+id+' .opt[data-ok="1"]').classList.add('correct');
-            fb.textContent=noMsg; fb.style.color='#e8547c'; }
-      done(key);
+      if(o.dataset.ok==='1'){ o.classList.add('ok'); fb.innerHTML=ok; fb.style.color='#3fb8a8'; }
+      else{ o.classList.add('no'); document.querySelector('#'+id+' .mopt[data-ok="1"]').classList.add('ok');
+        fb.innerHTML=no; fb.style.color='#e8547c'; }
+      markMod(mid);
     });
   });
 }
-wireOpts('kwOpts','kwFb','🎯 答對了!「最不可能」很容易看漏,圈起來就不會找錯方向!',
-  '再想想~「最不可能」最容易看錯,一定要圈起來!','kw');
-wireOpts('fixOpts','fixFb','⭐ 完全正確!寫下「為什麼錯」,大腦才會記住!',
-  '這樣下次還是會忘記喔~要寫出哪裡想錯了!','fix');
-/* 畫板 */
-const pad=document.getElementById('pad');
-const ctx=pad.getContext('2d');
-ctx.lineWidth=3; ctx.lineCap='round'; ctx.strokeStyle='#4a7fd4';
-let drawing=false, col='#4a7fd4';
-function pos(e){const r=pad.getBoundingClientRect();const t=e.touches?e.touches[0]:e;
-  return {x:(t.clientX-r.left)*(pad.width/r.width),y:(t.clientY-r.top)*(pad.height/r.height)};}
-function start(e){drawing=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault();}
-function move(e){if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault();done('draw');}
-function end(){drawing=false;}
-pad.addEventListener('mousedown',start);pad.addEventListener('mousemove',move);
-window.addEventListener('mouseup',end);
-pad.addEventListener('touchstart',start,{passive:false});pad.addEventListener('touchmove',move,{passive:false});
-pad.addEventListener('touchend',end);
-document.querySelectorAll('.swatch').forEach(s=>{
-  s.addEventListener('click',()=>{document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('sel'));
-    s.classList.add('sel');col=s.dataset.col;ctx.strokeStyle=col;});
-});
-function guide(){ctx.save();ctx.strokeStyle='#eee';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(160,20);ctx.lineTo(160,200);ctx.moveTo(40,110);ctx.lineTo(280,110);ctx.stroke();
-  ctx.fillStyle='#ccc';ctx.font='13px sans-serif';
-  ctx.fillText('北',153,16);ctx.fillText('南',153,214);ctx.fillText('西',22,114);ctx.fillText('東',286,114);
-  ctx.restore();ctx.strokeStyle=col;ctx.lineWidth=3;}
-guide();
-function clearPad(){ctx.clearRect(0,0,pad.width,pad.height);guide();}
-/* 看範例切換 */
-(function(){
-  const btn=document.getElementById('showAnsBtn');
-  const ex=document.getElementById('ansExample');
-  if(btn&&ex){ btn.addEventListener('click',()=>{
-    const show = ex.style.display==='none';
-    ex.style.display = show?'block':'none';
-    btn.textContent = show?'🙈 收起範例':'👀 看範例';
-  }); }
-})();
-/* 獎章 */
-const doneSet=new Set();
-function done(k){ if(doneSet.has(k))return; doneSet.add(k);
-  if(doneSet.size>=4){ const z=document.getElementById('medalZone');
-    if(!z.dataset.shown){z.dataset.shown='1';
-      z.innerHTML='<div class="medal">🏅</div><div style="font-weight:800;color:#e8547c;font-size:20px;">四關全部完成!你就是小考神!</div>';}
-  }
-}
+wireMod('m4opts','m4fb',
+  '⭐ 滿分!有<b>專有名詞</b>(超抽地下水)+<b>因果</b>(導致)+具體結果,閱卷老師一眼看到給分點。',
+  '這樣只能拿部分分數~要寫出<b>專有名詞</b>和<b>因果關係</b>才會滿分!','m4');
+wireMod('m5opts','m5fb',
+  '🎯 正確!<b>卡超過1分鐘就跳過</b>,後面可能有更簡單的題目在等你,第二輪再回來攻堅。',
+  '再想想~一直卡在同一題,後面簡單的題目就沒時間寫了!','m5');
+wireMod('m1bopts','m1bfb',
+  '🎉 對!題目問的是「<b>分布在哪裡</b>」。讀完先講出「在問什麼」,就不會答錯方向。',
+  '再看一次最後一句~題目問的是這種氣候<b>出現在什麼地方</b>喔!','m1');
+
 </script>
 </body>
 </html>
